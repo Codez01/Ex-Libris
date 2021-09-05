@@ -28,27 +28,24 @@ var month =today.toLocaleString('default', { month: 'long' });// get the month
 var day = today.getDate();//get the  Day
 var hour = today.getHours();//time 
 
-if(hour > 18 && hour > 17){
-  console.log("true");
-}
-
 if ((( hour > 8 ) &&  (hour < 16)) || (hour == 16)){
 ShiftPeriod ="Morning Shift";
 
 }
 
-if ((hour > 16 ) && (hour <= 24 )){
+if ((( hour > 16 ) &&  (hour < 24)) || (hour == 24)){
   ShiftPeriod = "Evening Shift";
 
 }
    
 
-if ((hour > 24 ) &&  (hour <= 8)) {
+if ((( hour > 1 ) &&  (hour < 8)) || (hour == 8)) {
     ShiftPeriod  = "Night Shift";
+
 }
 
     
-General+=`NOC & SOC Shift Summary - `+ ShiftPeriod+ " -  "+day+" /"+ month+".\n\n";
+General+=`NOC & SOC Shift Summary - `+ ShiftPeriod+ " -  "+day+" / "+ month+".\n\n";
 
 
 //-----------------------------------------
@@ -255,7 +252,7 @@ try {
   }
 }
 catch {
-  console.log("%c" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n******  Failed To Copy Result ******", "color:" + "Red");
+  console.log("%c" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n***  Failed To Copy Result ***", "color:" + "Red");
   fail;
 }
 //-----------------------------------------------------
@@ -348,16 +345,17 @@ text11+
 +text12;
 
 //------------------------
+if(SalesForce.length==0){//there are no incidents
+  General += "\n                     • None";
+
+}
+
 for (var i = 0; i < SalesForce.length; i++) {//SalesForce incidents
 
   General += DeleteDuplicates(SalesForce)[i];
 
-  if(SalesForce.length=0){//there are no incidents
-    General += "\n           • None";
+ }
 
-  }
-
-}
 General += ""
 //----------------------------------------------------------
 General+="\n\n"+text13+
@@ -426,10 +424,11 @@ function fallbackcopyToClipboard(text) {//this method is for automatically copyi
   }
 
 //---------------------------------------------------------------
+console.log(General);//general form
 
-console.log("%c" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n ****  The Number Of The Copied Alerts Are: " + counter + "/" + (parseInt(document.querySelectorAll(".vt").length) / (column +1 )) + "  ******", "color:" + "DodgerBlue");
+console.log("%c" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n **  The Number Of The Copied Alerts Are: " + counter + "/" + (parseInt(document.querySelectorAll(".vt").length) / (column +1 )) + "  **", "color:" + "DodgerBlue");
 
-console.log("%c" + "******Copying to clipboard was successful!*******" , "color:" + "Red");
+console.log("%c" + "***Copying to clipboard was successful!**" , "color:" + "Red");
 
 copyToClipboard(General);//copy to clipboard the following result.
 
