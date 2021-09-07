@@ -463,18 +463,17 @@ function copyToClipboard(text) {
 		return;
 	}
 	navigator.clipboard.writeText(text).then(function() {
-		console.log("Copying to clipboard was successful!");
+		console.log("%c" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n **  The Number Of The Copied Alerts Are: " + counter + "/" + (parseInt(document.querySelectorAll(".vt").length) / (column + 1)) + "  **", "color:" + "DodgerBlue");
+
+		console.log("%c" + "   ***Copying to clipboard was successful!***  ", 'background: #00aeff ; color: #ffffff');
 	}, function(err) {
-		console.error('Async: Could not copy text: ', err);
+		console.log("%c" + "*** Error , Please Refresh The Page And Try Again ***", 'background: #ff0000 ; color: #ffffff');
 	});
 }
 
 //---------------------------------------------------------------
 console.log(General); //general form
 
-console.log("%c" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n **  The Number Of The Copied Alerts Are: " + counter + "/" + (parseInt(document.querySelectorAll(".vt").length) / (column + 1)) + "  **", "color:" + "DodgerBlue");
-
-console.log("%c" + "***Copying to clipboard was successful!**", "color:" + "Red");
 
 copyToClipboard(General); //copy to clipboard the following result.
 
