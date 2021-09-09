@@ -1,8 +1,10 @@
 //Incidents Grabbing Script For Shift Summary**
 
+//Incidents Grabbing Script For Shift Summary**
+
 //------------------------------VARIABLES--------------------------------
 var index;//index of the incidents title
-var PageCapacity = parseInt(document.querySelectorAll(".vt").length) ;  //Page Incidents Total number
+var PageCapacity = parseInt(document.querySelectorAll(".vt").length) ; //Page Incidents Total number
 var ShiftNamesTemp = prompt("Shift Members --> (SYNTAX: ShiftOwner name2 name3 ..."); // array for the names of the shift owner and the others.(*The first name entered is considered as the shift owner)
 var ShiftNames= ShiftNamesTemp;// array for the names of the shift owner and the others.(*The first name entered is considered as the shift owner)
 let Owner = "";//the name of the shift owner.
@@ -17,10 +19,12 @@ const substring3 = "Salesforce";//substring that we wanna search for in each inc
 const substring4 = "False Alert";//substring that we wanna search for in each incident to check whether it's a false alert.
 var General = ""; // a string that contains all the incidents and everything that will be copied to the clipboard.
 var counter = 0;//counter for counting the alerts
-var column = 22; // the number of the page columns including Opened
+var column; // the number of the page columns including Opened
 var ShiftPeriod;
 
 //------------------------------END --> VARIABLES-------------------------
+
+
 //------------------Title----------------
 
 const today = new Date()// date
@@ -213,16 +217,123 @@ General += Beginning;
 var CloseCode;
 var OnAssignmentGroup;
 var AssignedTo;
+//-----------------------------------------------------------------------------------
+
+var counter2 = 0;
+var tempTitle;
+var tempConfig;
+var tempClose;
+var tempAssignedTo;
+var tempAssignmentgroup;
+
+console.log(tempClose + " " + tempConfig + " " + tempAssignmentgroup + " " + tempAssignedTo );
+for(var i = 1  ; i < document.querySelectorAll("th").length; i++){
+
+  if(((document.querySelectorAll("th")[i].innerText).includes("Title")) ){
+     tempTitle = counter2;
+    // console.log("title : " + tempTitle);
+   
+  }
+  if(((document.querySelectorAll("th")[i].innerText).includes("Configuration item")) ){
+     tempConfig = counter2;
+    //console.log("\nConfig : "+tempConfig);
+   
+  }  
+  if(((document.querySelectorAll("th")[i].innerText).includes("Close code")) ){
+     tempClose = counter2;
+    //console.log("\nClose code : " + tempClose);
+    
+  }  
+  if(((document.querySelectorAll("th")[i].innerText).includes("On-Call Assigned to")) ){
+     tempAssignedTo= counter2;
+    //console.log("\nAssigned to : " + tempAssignedTo);
+    
+  }  
+  if(((document.querySelectorAll("th")[i].innerText).includes("On-Call Assignment group")) ){
+     tempAssignmentgroup = counter2;
+    //console.log("\nassignedgroup : " + tempAssignmentgroup);
+  
+  }  
+ 
+  if(((document.querySelectorAll("th")[i].innerText).includes("Update Personalized List") || (document.querySelectorAll("th")[i].innerText).includes("Personalize List") ) ){
+    column = counter2;
+    //console.log("\ncolumn : " + column);
+    break;
+  } 
+  else{
+    //console.log(document.querySelectorAll("th")[i].innerText);
+counter2++;
+  }
+}
+
+
+
+//----------------------------------------------------------------------------------
+
+if(tempTitle>tempClose){
+  tempClose = (tempClose - tempTitle); 
+  tempClose = tempClose * -1;
+  tempClose = tempClose * -1;
+ 
+}else{
+  tempClose = (tempClose - tempTitle); 
+  tempClose = tempClose * -1;
+  tempClose = tempClose * -1;
+
+}
+
+
+if(tempTitle>tempConfig){
+  tempConfig =  (tempConfig - tempTitle); 
+  tempConfig  = tempConfig * -1;
+  tempConfig  = tempConfig * -1;
+}
+else{
+  tempConfig =  (tempConfig - tempTitle); 
+  tempConfig  = tempConfig * -1;
+  tempConfig  = tempConfig * -1;
+}
+
+
+if(tempTitle>tempAssignmentgroup){
+
+  tempAssignmentgroup= (tempAssignmentgroup - tempTitle); 
+  tempAssignmentgroup = tempAssignmentgroup * -1;
+  tempAssignmentgroup = tempAssignmentgroup * -1;
+}
+else{
+
+  tempAssignmentgroup= (tempAssignmentgroup - tempTitle); 
+  tempAssignmentgroup = tempAssignmentgroup * -1;
+  tempAssignmentgroup = tempAssignmentgroup * -1;
+}
+
+
+if(tempTitle>tempAssignedTo){
+
+  tempAssignedTo = (tempAssignedTo - tempTitle); 
+  tempAssignedTo  =  tempAssignedTo  * -1;
+  tempAssignedTo  =  tempAssignedTo  * -1;
+
+}else{
+  tempAssignedTo = (tempAssignedTo - tempTitle); 
+  tempAssignedTo  =  tempAssignedTo  * -1;
+  tempAssignedTo  =  tempAssignedTo  * -1;
+
+}
+
 
 try {
-  for (var i = 2; i < PageCapacity; i += (column+1)) {
+  for (var i = tempTitle-1 ; i < PageCapacity; i += (column)) {
     counter++;
 //editable , depends on the user Filter
     index =  i; //index of the incidents title 
-    CloseIndex =index + 7; //the index of the closeCode
-    ConfigurationIndex = index + 1; // the index of the configuration item .
-    OnAssignmentGroup = index  + 18; //On-Call Assignment group cloumn.
-    AssignedTo = index + 19; //assigned to column
+
+    CloseIndex =index + tempClose; //the index of the closeCode
+    ConfigurationIndex = index + tempConfig; // the index of the configuration item .
+    OnAssignmentGroup = index  + tempAssignmentgroup; //On-Call Assignment group cloumn.
+    AssignedTo = index + tempAssignedTo; //assigned to column
+    
 
 
 //-------------------------------------------------------------------
@@ -268,9 +379,8 @@ try {
     }
   }
 }
-catch {
-  console.log("%c" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n***  Failed To Copy Result ***", "color:" + "Red");
-  fail;
+catch(error){
+  console.error(error);
 }
 
 //-----------------------------------------------------
@@ -478,20 +588,36 @@ function fallbackcopyToClipboard(text) {//this method is for automatically copyi
       return;
     }
     navigator.clipboard.writeText(text).then(function() {
-        console.log( "Copying to clipboard was successful!");
+        
+        console.log('%c Copying to clipboard was successful!', 'background: #00ccff; color: #ffffff');
     }, function(err) {
-      console.error('Async: Could not copy text: ', err);
+     
+      console.log('%c Could not copy text !', 'background: #e8105f; color: #ffffff');
     });
   }
 
 
 //---------------------------------------------------------------
-
+console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 console.log(General);//general form
 
-console.log("%c" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n **  The Number Of The Copied Alerts Are: " + counter + "/" + (parseInt(document.querySelectorAll(".vt").length) / (column +1 )) + "  **", "color:" + "DodgerBlue");
+console.log("%c" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n **  The Number Of The Copied Alerts Are: " + counter + "/" + (parseInt(document.querySelectorAll(".vt").length) / (column)) + "  **", "color:" + "DodgerBlue");
 
-console.log("%c" + "***Copying to clipboard was successful!**" , "color:" + "Red");
+
+
+console.log("                   |   ");
+console.log("                   |   ");
+console.log("                   |   ");
+console.log("                   |   ");
+console.log("                   V   ");
 
 copyToClipboard(General);//copy to clipboard the following result.
 //------------------------------------------------------END-------------------------------------------------------------------
+
+
+
+
+
+
+
+
