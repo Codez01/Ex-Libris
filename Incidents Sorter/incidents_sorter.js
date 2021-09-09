@@ -1,5 +1,7 @@
 //Incidents Grabbing Script For Shift Summary**
 
+//Incidents Grabbing Script For Shift Summary**
+
 //------------------------------VARIABLES--------------------------------
 var index;//index of the incidents title
 var PageCapacity = parseInt(document.querySelectorAll(".vt").length) ; //Page Incidents Total number
@@ -43,11 +45,12 @@ if ((( hour > 16 ) &&  (hour < 24)) || (hour == 24)){
 
 if ((( hour > 1 ) &&  (hour < 8)) || (hour == 8)) {
     ShiftPeriod  = "Night Shift";
+    day = day - 1 ;
 
 }
 
     
-General+=`NOC & SOC Shift Summary - `+ ShiftPeriod+ " -  "+day+" / "+ month+".\n\n";
+General+=`NOC & SOC Shift Summary - `+ ShiftPeriod+ " -  "+ day +" / "+ month+".\n\n";
 
 
 //-----------------------------------------
