@@ -218,6 +218,7 @@ General += Beginning;
 var CloseCode;
 var OnAssignmentGroup;
 var AssignedTo;
+var contact_type;
 //-----------------------------------------------------------------------------------
 
 var counter2 = 0;
@@ -226,6 +227,7 @@ var tempConfig;
 var tempClose;
 var tempAssignedTo;
 var tempAssignmentgroup;
+var tempContactType;
 
 console.log(tempClose + " " + tempConfig + " " + tempAssignmentgroup + " " + tempAssignedTo );
 for(var i = 1  ; i < document.querySelectorAll("th").length; i++){
@@ -255,6 +257,11 @@ for(var i = 1  ; i < document.querySelectorAll("th").length; i++){
     //console.log("\nassignedgroup : " + tempAssignmentgroup);
   
   }  
+  if(((document.querySelectorAll("th")[i].innerText).includes("Contact type")) ){
+    tempContactType = counter2;
+   //console.log("\nassignedgroup : " + tempAssignmentgroup);
+ 
+ }  
  
   if(((document.querySelectorAll("th")[i].innerText).includes("Update Personalized List") || (document.querySelectorAll("th")[i].innerText).includes("Personalize List") ) ){
     column = counter2;
@@ -323,6 +330,19 @@ if(tempTitle>tempAssignedTo){
 
 }
 
+if(tempTitle>tempContactType){
+
+  tempContactType = (tempContactType - tempTitle); 
+  tempContactType  =  tempContactType  * -1;
+  tempContactType  =  tempContactType  * -1;
+
+}else{
+  tempContactType = (tempContactType - tempTitle); 
+  tempContactType  =  tempContactType  * -1;
+  tempContactType  =  tempContactType  * -1;
+
+}
+
 
 try {
   for (var i = tempTitle-1 ; i < PageCapacity; i += (column)) {
@@ -334,6 +354,7 @@ try {
     ConfigurationIndex = index + tempConfig; // the index of the configuration item .
     OnAssignmentGroup = index  + tempAssignmentgroup; //On-Call Assignment group cloumn.
     AssignedTo = index + tempAssignedTo; //assigned to column
+    contact_type = index + tempContactType;
     
 
 
@@ -357,7 +378,7 @@ try {
       }
       III.push("\n               • " + document.querySelectorAll(".vt")[index].innerText + "        " + document.querySelectorAll(".vt")[ConfigurationIndex ].innerText + "        " + document.querySelectorAll(".vt")[CloseIndex].innerText+ OnAssignmentGroup+ AssignedTo);
     }
-    if ((document.querySelectorAll(".vt")[index + 11].innerText).includes(substring3)) {//salesforce incidents
+    if ((document.querySelectorAll(".vt")[contact_type].innerText).includes(substring3)) {//salesforce incidents
       if(CloseCode.includes(substring4)){
         FalseAlerts.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + document.querySelectorAll(".vt")[ConfigurationIndex ].innerText + "        " + document.querySelectorAll(".vt")[CloseIndex].innerText+ OnAssignmentGroup)+ AssignedTo;
       }
