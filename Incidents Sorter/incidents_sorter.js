@@ -109,6 +109,7 @@ let text16= "Daily report:";
 let text17= "Analytics:";
 let text18="Private/Shift Tasks:";
 let text19;
+let text20= "All shift members participated in Shift Handover via a Call - ";
 
 //--------last name guess-----
 switch(Owner){
@@ -179,6 +180,7 @@ text16 = text16.replace(/[A-Za-z]/g, translate);
 text17 = text17.replace(/[A-Za-z]/g, translate);
 text18 = text18.replace(/[A-Za-z]/g, translate);
 text19 = text19.replace(/[A-Za-z]/g, translate);
+text20 = text20.replace(/[A-Za-z]/g, translate);
 
 //Adding Titles
 // Pingdom.push(text1);
@@ -197,7 +199,8 @@ Hello,`+"\n\n"+
 text5 +
 
 `\n\nShift members: ` + FormatedNames + `
-Shift owner: `+ Owner + 
+Shift owner: `+ Owner + "\n\n       "+text20+"\n"+
+
 
 `
 Tasks dedicated analyst: N/A \n\n`
