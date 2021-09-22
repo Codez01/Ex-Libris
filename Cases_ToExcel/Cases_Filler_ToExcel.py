@@ -328,6 +328,7 @@ try:
             sheet["L" + str(7 + i)] = d['summary' + str(k)]
             maxSummaryWidth.append( len(d['summary' + str(k)]))
             sheet["O" + str(7 + i)] = d['first response' + str(k)] + " min"
+            sheet["P"+ str(7+i)] = "No"
             k = k + 1
 
         k = NA_counter
@@ -346,6 +347,7 @@ try:
             sheet["L" + str(i)] = d['summary' + str(k)]
             maxSummaryWidth.append(len(d['summary' + str(k)]))
             sheet["O" + str(i)] = d['first response' + str(k)] + " min"
+            sheet["P" + str(i)] = "No"
             k = k + 1
         k = NA_counter + EU_counter
 
@@ -363,6 +365,7 @@ try:
             sheet["L" + str(i)] = d['summary' + str(k)]
             maxSummaryWidth.append(len(d['summary' + str(k)]))
             sheet["O" + str(i)] = d['first response' + str(k)] + " min"
+            sheet["P" + str(i)] = "No"
             k = k + 1
 
         k = NA_counter + EU_counter + APAC_counter
@@ -383,6 +386,7 @@ try:
             sheet["L" + str(i)] = d['summary' + str(k)]
             maxSummaryWidth.append(len(d['summary' + str(k)]))
             sheet["O" + str(i)] = d['first response' + str(k)] + " min"
+            sheet["P" + str(i)] = "No"
             k = k + 1
 
         k = NA_counter + EU_counter + APAC_counter + ROW_counter
@@ -400,6 +404,7 @@ try:
             sheet["L" + str(i)] = d['summary' + str(k)]
             maxSummaryWidth.append(len(d['summary' + str(k)]))
             sheet["O" + str(i)] = d['first response' + str(k)] + " min"
+            sheet["P" + str(i)] = "No"
             k = k + 1
 
         k = NA_counter + EU_counter + APAC_counter + ROW_counter + Global_counter
