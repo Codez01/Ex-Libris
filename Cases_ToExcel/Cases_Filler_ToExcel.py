@@ -49,19 +49,24 @@ try:
 
     total = NA_counter + EU_counter + APAC_counter + ROW_counter + Global_counter
     # ----------------
+    l = list(filter(None, l))  # remove empty indexes from a list
     # ********************Looping into the elements *******************************
     j = 0
-    for i in range(0, len(l), 8):
-        if ("local" in l[i + 3]):
+    for i in range(0, len(l)-7, 8):
+
+        if (l[i + 3] == 'Local'):
+
             d['local' + str(j)] = l[i + 3]
-            d['cloud' + str(j)] = ""
+            d['cloud' + str(j)] = " "
         else:
-            d['local' + str(j)] = ""
+            d['local' + str(j)] = " "
             d['cloud' + str(j)] = l[i + 3]
 
         d['case number' + str(j)] = l[i]
 
+
         d['customer code' + str(j)] = l[i + 5]
+
 
         d['customer name' + str(j)] = l[i + 6]
 
@@ -365,8 +370,10 @@ try:
     if (ROW_counter != 0):
 
         for i in range(ROW_row - 1, Global_row - 1):
+
             sheet["F" + str(i)] = d['local' + str(k)]
             sheet["G" + str(i)] = d['cloud' + str(k)]
+
             sheet["H" + str(i)] = int(d['case number' + str(k)])
             sheet["I" + str(i)] = d['customer code' + str(k)]
             maxCodeWidth.append(len(d['customer code' + str(k)]))
