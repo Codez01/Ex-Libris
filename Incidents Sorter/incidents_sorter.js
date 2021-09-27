@@ -1,7 +1,5 @@
 //Incidents Grabbing Script For Shift Summary**
 
-//Incidents Grabbing Script For Shift Summary**
-
 //------------------------------VARIABLES--------------------------------
 var index;//index of the incidents title
 var PageCapacity = parseInt(document.querySelectorAll(".vt").length) ; //Page Incidents Total number
