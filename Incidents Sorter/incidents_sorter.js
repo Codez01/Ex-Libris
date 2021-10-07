@@ -220,6 +220,7 @@ var CloseCode;
 var OnAssignmentGroup;
 var AssignedTo;
 var contact_type;
+var number;
 //-----------------------------------------------------------------------------------
 
 var counter2 = 0;
@@ -229,6 +230,7 @@ var tempClose;
 var tempAssignedTo;
 var tempAssignmentgroup;
 var tempContactType;
+var tempNumber;
 
 console.log(tempClose + " " + tempConfig + " " + tempAssignmentgroup + " " + tempAssignedTo );
 for(var i = 1  ; i < document.querySelectorAll("th").length; i++){
@@ -250,19 +252,23 @@ for(var i = 1  ; i < document.querySelectorAll("th").length; i++){
   }  
   if(((document.querySelectorAll("th")[i].innerText).includes("On-Call Assigned to")) ){
      tempAssignedTo= counter2;
-    //console.log("\nAssigned to : " + tempAssignedTo);
+    
     
   }  
   if(((document.querySelectorAll("th")[i].innerText).includes("On-Call Assignment group")) ){
      tempAssignmentgroup = counter2;
-    //console.log("\nassignedgroup : " + tempAssignmentgroup);
   
   }  
   if(((document.querySelectorAll("th")[i].innerText).includes("Contact type")) ){
     tempContactType = counter2;
-   //console.log("\nassignedgroup : " + tempAssignmentgroup);
+   
  
  }  
+ if(((document.querySelectorAll("th")[i].innerText).includes("Number")) ){
+  tempNumber = counter2;
+
+
+}
  
   if(((document.querySelectorAll("th")[i].innerText).includes("Update Personalized List") || (document.querySelectorAll("th")[i].innerText).includes("Personalize List") ) ){
     column = counter2;
@@ -343,6 +349,18 @@ if(tempTitle>tempContactType){
   tempContactType  =  tempContactType  * -1;
 
 }
+if(tempTitle>tempNumber){
+
+  tempNumber = (tempNumber - tempTitle); 
+  tempNumber  =  tempNumber  * -1;
+  tempNumber =  tempNumber * -1;
+
+}else{
+  tempNumber= (tempNumber - tempTitle); 
+  tempNumber  =  tempNumber  * -1;
+  tempNumber  =  tempNumber  * -1;
+
+}
 
 
 try {
@@ -356,13 +374,15 @@ try {
     OnAssignmentGroup = index  + tempAssignmentgroup; //On-Call Assignment group cloumn.
     AssignedTo = index + tempAssignedTo; //assigned to column
     contact_type = index + tempContactType;
-    
+    number = index + tempNumber;
 
 
 //-------------------------------------------------------------------
 
     string = document.querySelectorAll(".vt")[index].innerText;//string that contains the specific incident title.
     CloseCode = document.querySelectorAll(".vt")[CloseIndex].innerText; // it gets the closeCode information about each incident.
+    var configurationItem = document.querySelectorAll(".vt")[ConfigurationIndex ].innerText;
+
     if((document.querySelectorAll(".vt")[OnAssignmentGroup].innerText).includes("(empty)")){
       OnAssignmentGroup="";
       AssignedTo="";
@@ -371,32 +391,37 @@ try {
       OnAssignmentGroup = "   ( Assigned Group : " + document.querySelectorAll(".vt")[OnAssignmentGroup].innerText;
      AssignedTo = "  / Assigned To : " + document.querySelectorAll(".vt")[AssignedTo].innerText+" )";
     }
-   
+    if(CloseCode.includes("(empty)")){
+      CloseCode = "";
+    }
+   if(configurationItem.includes("(empty)")){
+      configurationItem = "";
+    }
 
     if (string.includes(substring2) || string.includes("iii")) {// iii incidents
       if(CloseCode.includes(substring4)){
-        FalseAlerts.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + document.querySelectorAll(".vt")[ConfigurationIndex ].innerText + "        " + document.querySelectorAll(".vt")[CloseIndex].innerText+ OnAssignmentGroup + AssignedTo);
+        FalseAlerts.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + configurationItem + "        " +CloseCode+ OnAssignmentGroup + AssignedTo);
       }
-      III.push("\n               • " + document.querySelectorAll(".vt")[index].innerText + "        " + document.querySelectorAll(".vt")[ConfigurationIndex ].innerText + "        " + document.querySelectorAll(".vt")[CloseIndex].innerText+ OnAssignmentGroup+ AssignedTo);
+      III.push("\n               • " + document.querySelectorAll(".vt")[index].innerText + "        " + configurationItem + "        " +CloseCode+ OnAssignmentGroup+ AssignedTo);
     }
     if ((document.querySelectorAll(".vt")[contact_type].innerText).includes(substring3)) {//salesforce incidents
       if(CloseCode.includes(substring4)){
-        FalseAlerts.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + document.querySelectorAll(".vt")[ConfigurationIndex ].innerText + "        " + document.querySelectorAll(".vt")[CloseIndex].innerText+ OnAssignmentGroup)+ AssignedTo;
+        FalseAlerts.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + configurationItem + "        " +CloseCode+ OnAssignmentGroup)+ AssignedTo;
       }
      
-      SalesForce.push("\n          • " + document.querySelectorAll(".vt")[index].innerText + "        " + document.querySelectorAll(".vt")[ConfigurationIndex ].innerText + "        " + document.querySelectorAll(".vt")[CloseIndex].innerText+ OnAssignmentGroup+ AssignedTo);
+      SalesForce.push("\n          • " + document.querySelectorAll(".vt")[number].innerText + "        " + document.querySelectorAll(".vt")[index].innerText + "        " + configurationItem + "        " +CloseCode+ OnAssignmentGroup+ AssignedTo);
 
     } else {//other alerts
       if(CloseCode.includes(substring4)){
-        FalseAlerts.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + document.querySelectorAll(".vt")[ConfigurationIndex ].innerText + "        " + document.querySelectorAll(".vt")[CloseIndex].innerText+ OnAssignmentGroup+ AssignedTo);
+        FalseAlerts.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + configurationItem + "        " +CloseCode+ OnAssignmentGroup+ AssignedTo);
       }
-      Alerts.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + document.querySelectorAll(".vt")[ConfigurationIndex ].innerText + "        " + document.querySelectorAll(".vt")[CloseIndex].innerText + OnAssignmentGroup+ AssignedTo);
+      Alerts.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + configurationItem + "        " +CloseCode + OnAssignmentGroup+ AssignedTo);
 
       if (string.includes(substring)) {//if a Pingdom was found in within the incident title
         if(CloseCode.includes(substring4)){
-          FalseAlerts.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + document.querySelectorAll(".vt")[ConfigurationIndex ].innerText + "        " + document.querySelectorAll(".vt")[CloseIndex].innerText+ OnAssignmentGroup+ AssignedTo);
+          FalseAlerts.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + configurationItem + "        " +CloseCode+ OnAssignmentGroup+ AssignedTo);
         }
-        Pingdom.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + document.querySelectorAll(".vt")[ConfigurationIndex ].innerText + "        " + document.querySelectorAll(".vt")[CloseIndex].innerText+ OnAssignmentGroup+ AssignedTo);//add the pingdom title and other elements to the array
+        Pingdom.push("\n           • " + document.querySelectorAll(".vt")[index].innerText + "        " + configurationItem + "        " +CloseCode+ OnAssignmentGroup+ AssignedTo);//add the pingdom title and other elements to the array
 
       }
     }
@@ -636,7 +661,6 @@ console.log("                   V   ");
 
 copyToClipboard(General);//copy to clipboard the following result.
 //------------------------------------------------------END-------------------------------------------------------------------
-
 
 
 
