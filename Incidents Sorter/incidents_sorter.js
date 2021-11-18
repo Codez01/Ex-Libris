@@ -108,6 +108,8 @@ let text17= "Analytics:";
 let text18="Private/Shift Tasks:";
 let text19;
 let text20= "All shift members participated in Shift Handover via a Call - ";
+let text21= "Exceptional events/escalations/issues:";
+
 
 //--------last name guess-----
 switch(Owner){
@@ -179,6 +181,7 @@ text17 = text17.replace(/[A-Za-z]/g, translate);
 text18 = text18.replace(/[A-Za-z]/g, translate);
 text19 = text19.replace(/[A-Za-z]/g, translate);
 text20 = text20.replace(/[A-Za-z]/g, translate);
+text21 = text21.replace(/[A-Za-z]/g, translate);
 
 //Adding Titles
 // Pingdom.push(text1);
@@ -488,8 +491,11 @@ function DeleteDuplicates(elements) {//method for deleting duplicates and count 
 
 //-----------------------
 
+General+="\n\n  "+text21;//add the Exceptional events/esclations/issues
+General += "\n\n           • None";
 
 
+//-------------------------
 General+=text2;
   DeleteDuplicates(Alerts);
   if(Alerts.length==0){//there are no incidents
@@ -661,7 +667,6 @@ console.log("                   V   ");
 
 copyToClipboard(General);//copy to clipboard the following result.
 //------------------------------------------------------END-------------------------------------------------------------------
-
 
 
 
