@@ -30,8 +30,8 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
             var INC = window.document.querySelectorAll(".list_div_cell .list2_body")[3].innerText // Choose table.
             var CH = window.document.querySelectorAll(".list_div_cell .list2_body")[6].innerText // Choose table.
             var CASES = window.document.querySelectorAll(".list_div_cell .list2_body")[9].innerText // Choose table.
-            var TASKS = window.document.querySelectorAll(".list_div_cell .list2_body")[13].innerText // Choose table.
-            var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[12].innerText // Choose table.
+            var TASKS = window.document.querySelectorAll(".list_div_cell .list2_body")[12].innerText // Choose table.
+            var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[15].innerText // Choose table.
             // var SCTASK  = document.querySelectorAll(".list_div_cell .list2_body")[2].innerText // Choose table.
 
             //tables should be added here....
@@ -43,7 +43,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
             var CH = window.document.querySelectorAll(".list_div_cell .list2_body")[7].innerText // Choose table.
             var CASES = window.document.querySelectorAll(".list_div_cell .list2_body")[10].innerText // Choose table.
             var TASKS = window.document.querySelectorAll(".list_div_cell .list2_body")[13].innerText // Choose table.
-            var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[12].innerText // Choose table.
+            var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[15].innerText // Choose table.
 
             // var SCTASK  = document.querySelectorAll(".list_div_cell .list2_body")[2].innerText // Choose table.
 
@@ -56,8 +56,8 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
             var INC = window.document.querySelectorAll(".list_div_cell .list2_body")[5].innerText // Choose table.
             var CH = window.document.querySelectorAll(".list_div_cell .list2_body")[8].innerText // Choose table.
             var CASES = window.document.querySelectorAll(".list_div_cell .list2_body")[11].innerText // Choose table.
-            var TASKS = window.document.querySelectorAll(".list_div_cell .list2_body")[13].innerText // Choose table.
-            var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[12].innerText // Choose table.
+            var TASKS = window.document.querySelectorAll(".list_div_cell .list2_body")[14].innerText // Choose table.
+            var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[15].innerText // Choose table.
 
             // var SCTASK  = document.querySelectorAll(".list_div_cell .list2_body")[2].innerText // Choose table.
 
@@ -767,3 +767,4 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
     copyToClipboard(Summary); //copy to clipboard the following result.
 
 });
+
