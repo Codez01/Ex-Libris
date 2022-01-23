@@ -19,6 +19,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
     let text7 = "On-Dashboard Non-Resolved Incidents:";
     let text8 = "Handover tasks in Progress:";
     let text9 = "Private tasks: ";
+    let incident_bold;
 
     var ChooseShift = prompt("Enter m for Morning , e for Evening , n for night shifts");
 
@@ -152,16 +153,18 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
             if (index.includes(type) && index != Array[0]) { //if there is a new  incident
                 tempCounter = 0;
+                
 
-
-                FinalResult2 += "\n• " + index + ": ";
+                incident_bold = index.replace(/[A-Za-z]/g, translate);
+                FinalResult2 += "\n• " + incident_bold + ": ";
 
             } else {
                 if (index.includes(type) && index == Array[0]) { //the first incident 
 
                     if (tempCounter == 0) {
 
-                        FinalResult2 += "• " + index + ": ";
+                        incident_bold = index.replace(/[A-Za-z]/g, translate);
+                        FinalResult2 += "\n• " + incident_bold + ": ";
                     }
 
 
@@ -279,16 +282,20 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
             if (index.includes(type) && index != Array[0]) { //if there is a new  incident
                 tempCounter = 0;
+                incident_bold = index.replace(/[A-Za-z]/g, translate);
+              
 
-
-                FinalResult3 += "\n• " + index + " - ";
+                FinalResult3 += "\n• " + incident_bold + " - ";
 
             } else {
                 if (index.includes(type) && index == Array[0]) { //the first incident 
 
                     if (tempCounter == 0) {
 
-                        FinalResult3 += "• " + index + " - ";
+                        incident_bold = index.replace(/[A-Za-z]/g, translate);
+              
+
+                        FinalResult3 += "\n• " + incident_bold + " - ";
                     }
 
 
@@ -379,14 +386,23 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
                 tempCounter = 0;
 
 
-                FinalResult2 += "\n• " + index + ": ";
+                incident_bold = index.replace(/[A-Za-z]/g, translate);
+              
+
+                     
+
+                FinalResult2 += "• " + incident_bold + ": ";
 
             } else {
                 if (index.includes(type) && index == Array[0]) { //the first incident 
 
                     if (tempCounter == 0) {
+                        incident_bold = index.replace(/[A-Za-z]/g, translate);
+              
 
-                        FinalResult2 += "• " + index + ": ";
+                     
+
+                        FinalResult2 += "• " + incident_bold + ": ";
                     }
 
 
@@ -523,16 +539,25 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
             if (index.includes(type) && index != Array[0]) { //if there is a new  incident
                 tempCounter = 0;
+                incident_bold = index.replace(/[A-Za-z]/g, translate);
+              
 
+            
 
-                FinalResult2 += "\n• " + index + " Opened on ";
+                FinalResult2 += "\n• " + incident_bold + " Opened on ";
 
             } else {
                 if (index.includes(type) && index == Array[0]) { //the first incident 
 
                     if (tempCounter == 0) {
 
-                        FinalResult2 += "• " + index + " Opened on ";
+                        incident_bold = index.replace(/[A-Za-z]/g, translate);
+              
+
+            
+
+                        FinalResult2 += "\n• " + incident_bold + " Opened on ";
+        
                     }
 
 
@@ -767,4 +792,3 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
     copyToClipboard(Summary); //copy to clipboard the following result.
 
 });
-
