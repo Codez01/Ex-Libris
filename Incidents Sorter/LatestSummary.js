@@ -10,8 +10,8 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
     var ShiftNamesTemp = prompt("Shift Members --> (SYNTAX: ShiftOwner name2 name3 ..."); // array for the names of the shift owner and the others.(*The first name entered is considered as the shift owner)
     var ShiftNames = ShiftNamesTemp; // array for the names of the shift owner and the others.(*The first name entered is considered as the shift owner)
     let Owner = ""; //the name of the shift owner.
-    let text1 = "Shift owner: ";
-    let text2 = "Shift members: ";
+    let text1 = "Shift owner is ";
+    let text2 = "and shift members are ";
     let text3 = "Events/Exceptional Issues:";
     //let text4 = "Handled Incidents/Passed to other Teams:";
     let text5 = "Changes Handled:";
@@ -164,14 +164,14 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
                 tempCounter = 0;
 
 
-                FinalResult2 += "\n• " + index + ": ";
+                FinalResult2 += "\n   • " + index + ": ";
 
             } else {
                 if (index.includes(type) && index == Array[0]) { //the first incident 
 
                     if (tempCounter == 0) {
 
-                        FinalResult2 += "• " + index + ": ";
+                        FinalResult2 += "   • " + index + ": ";
                     }
 
 
@@ -333,14 +333,14 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
                 tempCounter = 0;
 
 
-                FinalResult3 += "\n• " + index + " - ";
+                FinalResult3 += "\n   • " + index + " - ";
 
             } else {
                 if (index.includes(type) && index == Array[0]) { //the first incident 
 
                     if (tempCounter == 0) {
 
-                        FinalResult3 += "• " + index + " - ";
+                        FinalResult3 += "   • " + index + " - ";
                     }
 
 
@@ -431,14 +431,14 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
                 tempCounter = 0;
 
 
-                FinalResult2 += "\n• " + index + ": ";
+                FinalResult2 += "\n   • " + index + ": ";
 
             } else {
                 if (index.includes(type) && index == Array[0]) { //the first incident 
 
                     if (tempCounter == 0) {
 
-                        FinalResult2 += "• " + index + ": ";
+                        FinalResult2 += "   • " + index + ": ";
                     }
 
 
@@ -577,14 +577,14 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
                 tempCounter = 0;
 
 
-                FinalResult2 += "\n• " + index;
+                FinalResult2 += "\n   • " + index + ": ";
 
             } else {
                 if (index.includes(type) && index == Array[0]) { //the first incident 
 
                     if (tempCounter == 0) {
 
-                        FinalResult2 += "• " + index;
+                        FinalResult2 += "   • " + index + ": ";
                     }
 
 
@@ -592,14 +592,14 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
                 } else {
 
                     if (tempCounter == 0) {
-                        //FinalResult2 += index;
+                        FinalResult2 += index;
                         tempCounter++;
 
                     } else if (tempCounter == 1) {
 
 
 
-                        FinalResult2 += " By " + index + ": ";
+                        FinalResult2 += " ,priority: " + index + " - Title: ";
                         tempCounter++;
 
 
@@ -839,8 +839,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
         }
         return String.fromCodePoint(char.codePointAt(0) + diff);
     }
-    text1 = text1.replace(/[A-Za-z]/g, translate);
-    text2 = text2.replace(/[A-Za-z]/g, translate);
+
     text3 = text3.replace(/[A-Za-z]/g, translate);
     //text4 = text4.replace(/[A-Za-z]/g, translate);
     text5 = text5.replace(/[A-Za-z]/g, translate);
@@ -909,7 +908,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
     if (CH_table.includes("No records to display")) {
 
-        CH_table = "None."
+        CH_table = "   None."
     }
 
 
@@ -917,7 +916,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
     if (Exceptional_table.includes("No records to display")) {
 
-        Exceptional_table = "None."
+        Exceptional_table = "   None."
     }
 
 
@@ -926,7 +925,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
     if (CASES_table.includes("No records to display")) {
 
-        CASES_table = "None."
+        CASES_table = "   None."
     }
 
 
@@ -934,7 +933,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
     if (TASKS_table.includes("No records to display")) {
 
-        TASKS_table = "None."
+        TASKS_table = "   None."
     }
 
 
@@ -942,7 +941,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
     if (NONE_RESOLVED_table.includes("No records to display")) {
 
-        NONE_RESOLVED_table = "None."
+        NONE_RESOLVED_table = "   None."
     }
 
     var III_table = NOCIncBeautifier(III, "INC"); // it takes the table and the type that makes a new sentence ...
@@ -961,6 +960,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
     }
 
 
+
     //------------------Title----------------
     var ShiftPeriod;
 
@@ -969,21 +969,21 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
         month: 'long'
     }); // get the month 
     var day = today.getDate(); //get the  Day
-    var hour = today.getHours(); //time 
 
 
-    if (((hour > 8) && (hour < 16)) || (hour == 16)) {
+
+    if (ChooseShift == "m") {
         ShiftPeriod = "Morning Shift";
 
     }
 
-    if (((hour > 16) && (hour < 24)) || (hour == 24)) {
+    if (ChooseShift == "e") {
         ShiftPeriod = "Evening Shift";
 
     }
 
 
-    if (((hour >= 1) && (hour < 8)) || (hour == 8)) {
+    if (ChooseShift == "n") {
         ShiftPeriod = "Night Shift";
         day = day - 1;
 
@@ -999,7 +999,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
     titleCase(FormatedNames); // it creates a good format out of the shift owner and members.
     let Owner_BOLD = Owner.replace(/[A-Za-z]/g, translate); //owner name in bold
 
-    Summary += "Hi all,\n" + text1 + Owner + "\n" + text2 + FormatedNames + "\n\n" + text3 + "\n" + Exceptional_table + "\n\n" + text5 + "\n" + CH_table + "\n\n" + text10 + "\n" + text11 + "\n" + INC_table + "\n\n" + text12 + "\n" + SOC_table + "\n\n" + text13 + "\n" + III_table + "\n\n" + text6 + "\n" + CASES_table + "\n\n" + text7 + "\n" + NONE_RESOLVED_table + "\n\n" + text8 + "\n" + TASKS_table + "\n\n" + text9 + "\n\nRegards," + Owner_BOLD + ".";
+    Summary += "Hi all,\n" + text1 + Owner + " " + text2 + FormatedNames + "\n\n" + text3 + "\n" + Exceptional_table + "\n\n" + text5 + "\n" + CH_table + "\n\n" + text10 + "\n" + text11 + "\n" + INC_table + "\n\n" + text12 + "\n" + SOC_table + "\n\n" + text13 + "\n" + III_table + "\n\n" + text6 + "\n" + CASES_table + "\n\n" + text7 + "\n" + NONE_RESOLVED_table + "\n\n" + text8 + "\n" + TASKS_table + "\n\n" + text9 + "\n\nBest Regards,\n" + Owner_BOLD + "\nNOC & SOC Engineer";
 
 
     copyToClipboard(Summary); //copy to clipboard the following result.
