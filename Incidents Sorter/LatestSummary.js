@@ -403,7 +403,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
 
 
-						FinalResult2 += " ,priority: " + index + " - itle: ";
+						FinalResult2 += " ,priority: " + index + " - Title: ";
 						tempCounter++;
 
 
