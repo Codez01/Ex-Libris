@@ -1,1007 +1,1047 @@
+/************************************
+ * Author:    Hanna Bajjaly       ***
+ * Created:   27.1.2022           ***
+ * Title: Shift Summary Automation***
+ * **********************************
+ *                                 **
+ * (c) Copyright by Exlibris.      **
+ *                                 **
+ ************************************/
+
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ CHANGE IFRAME WINDOW $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 document.getElementsByName("gsft_main")[0].contentWindow.run = function(fn) {
-    fn.call(this, this.window);
+	fn.call(this, this.window);
 };
 document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
 
-    //--------------------------------------------------------------------------    VARIABLES   -----------------------------------------------------------
-
-    var ShiftNamesTemp = prompt("Shift Members --> (SYNTAX: ShiftOwner name2 name3 ..."); // array for the names of the shift owner and the others.(*The first name entered is considered as the shift owner)
-    var ShiftNames = ShiftNamesTemp; // array for the names of the shift owner and the others.(*The first name entered is considered as the shift owner)
-    let Owner = ""; //the name of the shift owner.
-    let text1 = "Shift owner is ";
-    let text2 = "and shift members are ";
-    let text3 = "Events/Exceptional Issues:";
-    //let text4 = "Handled Incidents/Passed to other Teams:";
-    let text5 = "Changes Handled:";
-    let text6 = "iQuest Cases:";
-    let text7 = "On-Dashboard Non-Resolved Incidents:";
-    let text8 = "Handover tasks in Progress:";
-    let text9 = "Private tasks: ";
-    let text10 = "Incidents: ";
-    let text11 = "   • Exlibris NOC: ";
-    let text12 = "   • Exlibris SOC: ";
-    let text13 = "   • Innovative NOC: ";
+	//--------------------------------------------------------------------------    VARIABLES   -----------------------------------------------------------
+
+	var ShiftNamesTemp = prompt("Shift Members --> (SYNTAX: ShiftOwner name2 name3 ..."); // array for the names of the shift owner and the others.(*The first name entered is considered as the shift owner)
+	var ShiftNames = ShiftNamesTemp; // array for the names of the shift owner and the others.(*The first name entered is considered as the shift owner)
+	let Owner = ""; //the name of the shift owner.
+	let text1 = "Shift owner is ";
+	let text2 = "and shift members are ";
+	let text3 = "Events/Exceptional Issues:";
+	//let text4 = "Handled Incidents/Passed to other Teams:";
+	let text5 = "Changes Handled:";
+	let text6 = "iQuest Cases:";
+	let text7 = "On-Dashboard Non-Resolved Incidents:";
+	let text8 = "Handover tasks in Progress:";
+	let text9 = "Private tasks: ";
+	let text10 = "Incidents: ";
+	let text11 = "   • Exlibris NOC: ";
+	let text12 = "   • Exlibris SOC: ";
+	let text13 = "   • Innovative NOC: ";
 
-    var ChooseShift = prompt("Enter m for Morning , e for Evening , n for night shifts");
+	var ChooseShift = prompt("Enter m for Morning , e for Evening , n for night shifts");
 
-    switch (ChooseShift) {
+	switch (ChooseShift) {
 
-        case 'm':
-            // var PT = document.querySelectorAll(".list_div_cell .list2_body")[0].innerText // Choose table.
-            var Exceptional = window.document.querySelectorAll(".list_div_cell .list2_body")[0].innerText // Choose table.
-            var INC = window.document.querySelectorAll(".list_div_cell .list2_body")[6].innerText // Choose table.
-            var CH = window.document.querySelectorAll(".list_div_cell .list2_body")[3].innerText // Choose table.
-            var CASES = window.document.querySelectorAll(".list_div_cell .list2_body")[15].innerText // Choose table.
-            var TASKS = window.document.querySelectorAll(".list_div_cell .list2_body")[18].innerText // Choose table.
-            var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[21].innerText // Choose table.
-            var III = window.document.querySelectorAll(".list_div_cell .list2_body")[12].innerText // Choose table.
-            var SOC = window.document.querySelectorAll(".list_div_cell .list2_body")[9].innerText // Choose table.
-            // var SCTASK  = document.querySelectorAll(".list_div_cell .list2_body")[2].innerText // Choose table.
+		case 'm':
+			// var PT = document.querySelectorAll(".list_div_cell .list2_body")[0].innerText // Choose table.
+			var Exceptional = window.document.querySelectorAll(".list_div_cell .list2_body")[0].innerText // Choose table.
+			var INC = window.document.querySelectorAll(".list_div_cell .list2_body")[6].innerText // Choose table.
+			var CH = window.document.querySelectorAll(".list_div_cell .list2_body")[3].innerText // Choose table.
+			var CASES = window.document.querySelectorAll(".list_div_cell .list2_body")[15].innerText // Choose table.
+			var TASKS = window.document.querySelectorAll(".list_div_cell .list2_body")[18].innerText // Choose table.
+			var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[21].innerText // Choose table.
+			var III = window.document.querySelectorAll(".list_div_cell .list2_body")[12].innerText // Choose table.
+			var SOC = window.document.querySelectorAll(".list_div_cell .list2_body")[9].innerText // Choose table.
 
-            //tables should be added here....
-            break;
-        case 'e':
-            // var PT = document.querySelectorAll(".list_div_cell .list2_body")[0].innerText // Choose table.
-            var Exceptional = window.document.querySelectorAll(".list_div_cell .list2_body")[1].innerText // Choose table.
-            var INC = window.document.querySelectorAll(".list_div_cell .list2_body")[7].innerText // Choose table.
-            var CH = window.document.querySelectorAll(".list_div_cell .list2_body")[4].innerText // Choose table.
-            var CASES = window.document.querySelectorAll(".list_div_cell .list2_body")[16].innerText // Choose table.
-            var TASKS = window.document.querySelectorAll(".list_div_cell .list2_body")[19].innerText // Choose table.
-            var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[21].innerText // Choose table.
-            var III = window.document.querySelectorAll(".list_div_cell .list2_body")[13].innerText // Choose table.
-            var SOC = window.document.querySelectorAll(".list_div_cell .list2_body")[10].innerText // Choose table.
 
-            // var SCTASK  = document.querySelectorAll(".list_div_cell .list2_body")[2].innerText // Choose table.
+			//tables should be added here....
+			break;
+		case 'e':
+			// var PT = document.querySelectorAll(".list_div_cell .list2_body")[0].innerText // Choose table.
+			var Exceptional = window.document.querySelectorAll(".list_div_cell .list2_body")[1].innerText // Choose table.
+			var INC = window.document.querySelectorAll(".list_div_cell .list2_body")[7].innerText // Choose table.
+			var CH = window.document.querySelectorAll(".list_div_cell .list2_body")[4].innerText // Choose table.
+			var CASES = window.document.querySelectorAll(".list_div_cell .list2_body")[16].innerText // Choose table.
+			var TASKS = window.document.querySelectorAll(".list_div_cell .list2_body")[19].innerText // Choose table.
+			var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[21].innerText // Choose table.
+			var III = window.document.querySelectorAll(".list_div_cell .list2_body")[13].innerText // Choose table.
+			var SOC = window.document.querySelectorAll(".list_div_cell .list2_body")[10].innerText // Choose table.
 
-            //tables should be added here....
-            break;
 
-        case 'n':
-            // var PT = document.querySelectorAll(".list_div_cell .list2_body")[0].innerText // Choose table.
-            var Exceptional = window.document.querySelectorAll(".list_div_cell .list2_body")[2].innerText // Choose table.
-            var INC = window.document.querySelectorAll(".list_div_cell .list2_body")[8].innerText // Choose table.
-            var CH = window.document.querySelectorAll(".list_div_cell .list2_body")[5].innerText // Choose table.
-            var CASES = window.document.querySelectorAll(".list_div_cell .list2_body")[17].innerText // Choose table.
-            var TASKS = window.document.querySelectorAll(".list_div_cell .list2_body")[20].innerText // Choose table.
-            var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[21].innerText // Choose table.
-            var III = window.document.querySelectorAll(".list_div_cell .list2_body")[14].innerText // Choose table.
-            var SOC = window.document.querySelectorAll(".list_div_cell .list2_body")[11].innerText // Choose table.
+			//tables should be added here....
+			break;
 
-            // var SCTASK  = document.querySelectorAll(".list_div_cell .list2_body")[2].innerText // Choose table.
+		case 'n':
+			// var PT = document.querySelectorAll(".list_div_cell .list2_body")[0].innerText // Choose table.
+			var Exceptional = window.document.querySelectorAll(".list_div_cell .list2_body")[2].innerText // Choose table.
+			var INC = window.document.querySelectorAll(".list_div_cell .list2_body")[8].innerText // Choose table.
+			var CH = window.document.querySelectorAll(".list_div_cell .list2_body")[5].innerText // Choose table.
+			var CASES = window.document.querySelectorAll(".list_div_cell .list2_body")[17].innerText // Choose table.
+			var TASKS = window.document.querySelectorAll(".list_div_cell .list2_body")[20].innerText // Choose table.
+			var NONE_RESOLVED = window.document.querySelectorAll(".list_div_cell .list2_body")[21].innerText // Choose table.
+			var III = window.document.querySelectorAll(".list_div_cell .list2_body")[14].innerText // Choose table.
+			var SOC = window.document.querySelectorAll(".list_div_cell .list2_body")[11].innerText // Choose table.
 
-            //tables should be added here....
-            break;
 
-        default:
 
-            alert("Incorrect Input , Try Again With : m , e or n .");
+			//tables should be added here....
+			break;
 
-    }
+		default:
 
+			alert("Incorrect Input , Try Again With : m , e or n .");
 
+	}
 
 
-    //%%%%%%%%%%%%%%%%%%%%%%    FUNCTIONS   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    //%%%%%%%%%%%%%%%%%%%%%%    FUNCTIONS   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	//%%%%%%%%%%%%%%%%%%%%%%    FUNCTIONS   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	//%%%%%%%%%%%%%%%%%%%%%%    FUNCTIONS   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    function SplitByString(source, splitBy) { //splits any string  to an array 
-        var splitter = splitBy.split('');
-        splitter.push([source]); //Push initial value
+	function SplitByString(source, splitBy) { //splits any string  to an array 
+		var splitter = splitBy.split('');
+		splitter.push([source]); //Push initial value
 
-        return splitter.reduceRight(function(accumulator, curValue) {
-            var k = [];
-            accumulator.forEach(v => k = [...k, ...v.split(curValue)]);
-            return k;
-        });
-    }
+		return splitter.reduceRight(function(accumulator, curValue) {
+			var k = [];
+			accumulator.forEach(v => k = [...k, ...v.split(curValue)]);
+			return k;
+		});
+	}
 
-    //--------------------------------------------------------------------
-    function StringCleaner(table, type) {
-        temp = []; //array that will contain the array without the empty values 
+	function CasesBeautifier(table, type) { //function for beautifying an incident details like - or . etc...
 
-        var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
+		var FinalResult3 = "";
+		temp = []; //array that will contain the array without the empty values 
 
-        var Array = SplitByString(table, splitBy); //split array
+		var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
 
-        for (let i of Array)
-            i && temp.push(i); // copy each non-empty value to the 'temp' array
+		var Array = SplitByString(table, splitBy); //split array
+		splitBy = "\t"
+		Array = SplitByString(table, splitBy); //split array
+		var tempCounter = 0;
+		for (let i of Array)
+			i && temp.push(i); // copy each non-empty value to the 'temp' array
 
-        Array = temp; // array that contains each element from the table 
-        Array = Array.filter(e => e !== '\n'); // removes \n from major incidents
+		Array = temp; // array that contains each element from the table 
 
+		Array = Array.filter(e => e !== '\n'); // removes \n from major incidents
+		FinalResult3 += "\n";
 
 
-        let FinalResult = ""; //string that contains the change , PT etc..
+		for (var i = 0; i < Array.length; i++) { //loop over array of incidents
+			index = Array[i];
+			index = index.replace('\n', ""); //replace new line with nothing (since major incidents come with ectra '\n')
 
-        for (var i = 0; i < Array.length; i++) { //loop
 
 
-            if (Array[i].includes(type) && i != 0) { //if there's an INC 
 
+			if (index.includes(type) && index != Array[0]) { //if there is a new  incident
+				tempCounter = 0;
 
-                FinalResult += "\n"
-                FinalResult += Array[i] + "\t";
 
-            } else {
+				FinalResult3 += "\n   • " + index + " - ";
 
-                FinalResult += Array[i] + "\t";
+			} else {
+				if (index.includes(type) && index == Array[0]) { //the first incident 
 
-            }
+					if (tempCounter == 0) {
 
-        }
-        return FinalResult;
-    }
+						FinalResult3 += "   • " + index + " - ";
+					}
 
-    function IncBeautifier(table, type) { //function for beautifying an incident details like - or . etc...
 
-        var FinalResult2 = "";
-        temp = []; //array that will contain the array without the empty values 
 
-        var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
+				} else {
 
-        var Array = SplitByString(table, splitBy); //split array
-        splitBy = "\t"
-        Array = SplitByString(table, splitBy); //split array
-        var tempCounter = 0;
-        for (let i of Array)
-            i && temp.push(i); // copy each non-empty value to the 'temp' array
 
-        Array = temp; // array that contains each element from the table 
 
-        Array = Array.filter(e => e !== '\n'); // removes \n from major incidents
+					if (tempCounter == 0) {
+						FinalResult3 += index + " - ";
+						tempCounter++;
 
 
-        for (var i = 0; i < Array.length; i++) { //loop over array of incidents
-            index = Array[i];
-            index = index.replace('\n', ""); //replace new line with nothing (since major incidents come with ectra '\n')
+					} else if (tempCounter == 1) {
 
+						FinalResult3 += index + " - ";
+						tempCounter++;
+					} else if (tempCounter == 2) {
 
 
+						FinalResult3 += "Passed to: " + index + ".";
+						tempCounter++;
 
-            if (index.includes(type) && index != Array[0]) { //if there is a new  incident
-                tempCounter = 0;
+					} else {
 
 
-                FinalResult2 += "\n   • " + index + ": ";
 
-            } else {
-                if (index.includes(type) && index == Array[0]) { //the first incident 
 
-                    if (tempCounter == 0) {
+						FinalResult3 += index + " ";
+						tempCounter++;
+					}
+				}
 
-                        FinalResult2 += "   • " + index + ": ";
-                    }
 
+			}
+		}
 
+		return FinalResult3;
+	}
 
-                } else {
 
-                    if (tempCounter == 0) {
-                        FinalResult2 += index + " - ";
-                        tempCounter++;
 
-                    } else if (tempCounter == 2) {
+	function NonResolved_Beautifier(table, type) { //function for beautifying an incident details like - or . etc...
 
-                        if (i + 1 < Array.length) {
+		var FinalResult2 = "";
+		temp = []; //array that will contain the array without the empty values 
 
+		var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
 
-                            if (Array[i + 1].includes(type) == false) {
+		var Array = SplitByString(table, splitBy); //split array
+		splitBy = "\t"
+		Array = SplitByString(table, splitBy); //split array
+		var tempCounter = 0;
+		for (let i of Array)
+			i && temp.push(i); // copy each non-empty value to the 'temp' array
 
-                                FinalResult2 += " - " + index + " - ";
-                                tempCounter++;
+		Array = temp; // array that contains each element from the table 
 
 
+		splitBy = "\n"
+		Array = SplitByString(table, splitBy); //split array
 
-                            } else {
 
-                                if (index.includes("HUB")) {
+		Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
+		splitBy = "\t"
+		Array = SplitByString(table, splitBy); //split array
+		splitBy = "\t\t"
+		Array = SplitByString(table, splitBy); //split array
+		Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
+		FinalResult2 += "\n";
 
-                                    FinalResult2 = FinalResult2.slice(0, -1) + "."
-                                    tempCounter++;
+		for (var i = 0; i < Array.length; i++) { //loop over array of incidents
+			index = Array[i];
+			index = index.replace('\n', ""); //replace new line with nothing (since major incidents or dates come with ectra '\n')
+			Array[i] = index;
+		}
 
 
-                                } else {
 
-                                    FinalResult2 += "Passed to: " + index + ".";
 
-                                    tempCounter++;
-                                }
-                            }
-                        } else {
+		for (var i = 0; i < Array.length; i++) { //loop over array of incidents
+			index = Array[i];
+			index = index.replace('\n', ""); //replace new line with nothing (since major incidents come with ectra '\n')
 
 
-                            if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
-                                FinalResult2 = FinalResult2.slice(0, -3) + "."
-                                tempCounter++;
 
 
-                            } else {
-                                FinalResult2 += "Passed to: " + index + ".";
-                                tempCounter++;
-                            }
+			if (index.includes(type) && index != Array[0]) { //if there is a new  incident
+				tempCounter = 0;
 
 
-                        }
+				FinalResult2 += "\n   • " + index + ": ";
 
+			} else {
+				if (index.includes(type) && index == Array[0]) { //the first incident 
 
+					if (tempCounter == 0) {
 
+						FinalResult2 += "   • " + index + ": ";
+					}
 
-                    } else if (tempCounter == 3) {
 
-                        if (i + 1 < Array.length) {
 
-                            if (Array[i + 1].includes(type) == false) {
-                                FinalResult2 += index + " - ";
-                                tempCounter++;
+				} else {
 
+					if (tempCounter == 0) {
+						FinalResult2 += index;
+						tempCounter++;
 
-                            } else {
-                                if (index.includes("HUB")) {
-                                    FinalResult2 = FinalResult2.slice(0, -3) + "."
-                                    tempCounter++;
+					} else if (tempCounter == 1) {
 
 
-                                } else {
-                                    FinalResult2 += "Passed to: " + index + ".";
-                                    tempCounter++;
-                                }
-                            }
+						if (i + 1 < Array.length) {
 
+							if (Array[i + 1].includes(type) == false) {
+								FinalResult2 += " - " + index + " - ";
+								tempCounter++;
 
+							} else {
+								FinalResult2 += " - " + index + ".";
+								tempCounter++;
 
-                        } else {
+							}
 
 
-                            if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
-                                FinalResult2 = FinalResult2.slice(0, -3) + "."
-                                tempCounter++;
 
+						} else {
 
-                            } else {
-                                FinalResult2 += "Passed to: " + index + ".";
-                                tempCounter++;
-                            }
 
+							FinalResult2 += " - " + index + ".";
+							tempCounter++;
 
-                        }
 
+						}
 
+					} else if (tempCounter == 2) {
 
-                    } else if (tempCounter == 4) {
+						if (i + 1 < Array.length) {
 
-                        if (index.includes("HUB")) {
-                            FinalResult2 = FinalResult2.slice(0, -3) + "."
-                            tempCounter++;
+							if (Array[i + 1].includes(type) == false) {
+								FinalResult2 += index + " - ";
+								tempCounter++;
 
 
-                        } else {
-                            FinalResult2 += "Passed to: " + index + ".";
-                            tempCounter++;
-                        }
+							} else {
+								FinalResult2 += index + ".";
+								tempCounter++;
 
-                    } else if (tempCounter == 5) {
+							}
 
-                        FinalResult2 += index + ".";
-                        tempCounter++;
 
-                    } else {
 
-                        FinalResult2 += index + " ";
-                        tempCounter++;
-                    }
-                }
+						} else {
 
 
-            }
-        }
+							FinalResult2 += index + ".";
+							tempCounter++;
 
-        return FinalResult2;
-    }
 
+						}
 
-    //----------------------------------------------------------
 
-    function CasesBeautifier(table, type) { //function for beautifying an incident details like - or . etc...
 
-        var FinalResult3 = "";
-        temp = []; //array that will contain the array without the empty values 
+					} else if (tempCounter == 3) {
+						FinalResult2 += index + ".";
+						tempCounter++;
 
-        var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
 
-        var Array = SplitByString(table, splitBy); //split array
-        splitBy = "\t"
-        Array = SplitByString(table, splitBy); //split array
-        var tempCounter = 0;
-        for (let i of Array)
-            i && temp.push(i); // copy each non-empty value to the 'temp' array
+					} else if (tempCounter == 4) {
 
-        Array = temp; // array that contains each element from the table 
+						FinalResult2 += index + ".";
+						tempCounter++;
 
-        Array = Array.filter(e => e !== '\n'); // removes \n from major incidents
+					} else {
 
+						FinalResult2 += index;
+						tempCounter++;
+					}
+				}
 
-        for (var i = 0; i < Array.length; i++) { //loop over array of incidents
-            index = Array[i];
-            index = index.replace('\n', ""); //replace new line with nothing (since major incidents come with ectra '\n')
 
+			}
+		}
 
+		return FinalResult2;
+	}
 
 
-            if (index.includes(type) && index != Array[0]) { //if there is a new  incident
-                tempCounter = 0;
+	function PT_Beautifier(table, type) { //function for beautifying an incident details like - or . etc...
 
 
-                FinalResult3 += "\n   • " + index + " - ";
+		var FinalResult2 = "";
+		temp = []; //array that will contain the array without the empty values 
 
-            } else {
-                if (index.includes(type) && index == Array[0]) { //the first incident 
+		var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
 
-                    if (tempCounter == 0) {
+		var Array = SplitByString(table, splitBy); //split array
+		splitBy = "\t"
+		Array = SplitByString(table, splitBy); //split array
+		var tempCounter = 0;
+		for (let i of Array)
+			i && temp.push(i); // copy each non-empty value to the 'temp' array
 
-                        FinalResult3 += "   • " + index + " - ";
-                    }
+		Array = temp; // array that contains each element from the table 
 
 
+		splitBy = "\n"
+		Array = SplitByString(table, splitBy); //split array
 
-                } else {
 
+		Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
+		splitBy = "\t"
+		Array = SplitByString(table, splitBy); //split array
+		splitBy = "\t\t"
+		Array = SplitByString(table, splitBy); //split array
+		Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
+		FinalResult2 += "\n";
 
+		for (var i = 0; i < Array.length; i++) { //loop over array of incidents
+			index = Array[i];
+			index = index.replace('\n', ""); //replace new line with nothing (since major incidents or dates come with ectra '\n')
+			Array[i] = index;
+		}
 
-                    if (tempCounter == 0) {
-                        FinalResult3 += index + " - ";
-                        tempCounter++;
 
 
-                    } else if (tempCounter == 1) {
 
-                        FinalResult3 += index + " - ";
-                        tempCounter++;
-                    } else if (tempCounter == 2) {
+		for (var i = 0; i < Array.length; i++) { //loop over array of incidents
+			index = Array[i];
+			index = index.replace('\n', ""); //replace new line with nothing (since major incidents come with ectra '\n')
 
 
-                        FinalResult3 += "Passed to: " + index + ".";
-                        tempCounter++;
 
-                    } else {
 
+			if (index.includes(type) && index != Array[0]) { //if there is a new  incident
+				tempCounter = 0;
 
 
+				FinalResult2 += "\n   • " + index + ": ";
 
-                        FinalResult3 += index + " ";
-                        tempCounter++;
-                    }
-                }
+			} else {
+				if (index.includes(type) && index == Array[0]) { //the first incident 
 
+					if (tempCounter == 0) {
 
-            }
-        }
+						FinalResult2 += "   • " + index + ": ";
+					}
 
-        return FinalResult3;
-    }
 
 
+				} else {
 
-    function NonResolved_Beautifier(table, type) { //function for beautifying an incident details like - or . etc...
+					if (tempCounter == 0) {
+						FinalResult2 += index;
+						tempCounter++;
 
-        var FinalResult2 = "";
-        temp = []; //array that will contain the array without the empty values 
+					} else if (tempCounter == 1) {
 
-        var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
 
-        var Array = SplitByString(table, splitBy); //split array
-        splitBy = "\t"
-        Array = SplitByString(table, splitBy); //split array
-        var tempCounter = 0;
-        for (let i of Array)
-            i && temp.push(i); // copy each non-empty value to the 'temp' array
 
-        Array = temp; // array that contains each element from the table 
+						FinalResult2 += " ,priority: " + index + " - itle: ";
+						tempCounter++;
 
 
-        splitBy = "\n"
-        Array = SplitByString(table, splitBy); //split array
+					} else if (tempCounter == 2) {
 
 
-        Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
-        splitBy = "\t"
-        Array = SplitByString(table, splitBy); //split array
-        splitBy = "\t\t"
-        Array = SplitByString(table, splitBy); //split array
-        Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
+						FinalResult2 += index + ". ";
+						tempCounter++;
 
-        for (var i = 0; i < Array.length; i++) { //loop over array of incidents
-            index = Array[i];
-            index = index.replace('\n', ""); //replace new line with nothing (since major incidents or dates come with ectra '\n')
-            Array[i] = index;
-        }
 
 
 
+					} else {
 
-        for (var i = 0; i < Array.length; i++) { //loop over array of incidents
-            index = Array[i];
-            index = index.replace('\n', ""); //replace new line with nothing (since major incidents come with ectra '\n')
+						FinalResult2 += index;
+						tempCounter++;
+					}
+				}
 
 
+			}
+		}
 
+		return FinalResult2;
+	}
 
-            if (index.includes(type) && index != Array[0]) { //if there is a new  incident
-                tempCounter = 0;
+	//function for incidents / iii  alerts 
+	function NOC_III_IncBeautifier(table, type) { //function for beautifying an incident details like - or . etc...
 
+		var FinalResult2 = "";
+		temp = []; //array that will contain the array without the empty values 
 
-                FinalResult2 += "\n   • " + index + ": ";
+		var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
 
-            } else {
-                if (index.includes(type) && index == Array[0]) { //the first incident 
+		var Array = SplitByString(table, splitBy); //split array
+		splitBy = "\t"
+		Array = SplitByString(table, splitBy); //split array
+		var tempCounter = 0;
+		for (let i of Array)
+			i && temp.push(i); // copy each non-empty value to the 'temp' array
 
-                    if (tempCounter == 0) {
+		Array = temp; // array that contains each element from the table 
 
-                        FinalResult2 += "   • " + index + ": ";
-                    }
+		Array = Array.filter(e => e !== '\n'); // removes \n from major incidents
 
+		FinalResult2 += "\n";
 
+		for (var i = 0; i < Array.length; i++) { //loop over array of incidents
+			index = Array[i];
+			index = index.replace('\n', ""); //replace new line with nothing (since major incidents come with ectra '\n')
 
-                } else {
 
-                    if (tempCounter == 0) {
-                        FinalResult2 += index;
-                        tempCounter++;
 
-                    } else if (tempCounter == 1) {
 
+			if (index.includes(type) && index != Array[0]) { //if there is a new  incident
+				tempCounter = 0;
 
-                        if (i + 1 < Array.length) {
 
-                            if (Array[i + 1].includes(type) == false) {
-                                FinalResult2 += " - " + index + " - ";
-                                tempCounter++;
+				FinalResult2 += "\n              • " + index + ": ";
 
-                            } else {
-                                FinalResult2 += " - " + index + ".";
-                                tempCounter++;
+			} else {
+				if (index.includes(type) && index == Array[0]) { //the first incident 
 
-                            }
+					if (tempCounter == 0) {
 
+						FinalResult2 += "              • " + index + ": ";
+					}
 
 
-                        } else {
 
+				} else {
 
-                            FinalResult2 += " - " + index + ".";
-                            tempCounter++;
+					if (tempCounter == 0) {
+						FinalResult2 += index + " - ";
+						tempCounter++;
+					} else if (tempCounter == 2) {
 
+						if (i + 1 < Array.length) {
 
-                        }
 
-                    } else if (tempCounter == 2) {
+							if (Array[i + 1].includes(type) == false) {
 
-                        if (i + 1 < Array.length) {
+								FinalResult2 += " - " + index + " - ";
+								tempCounter++;
 
-                            if (Array[i + 1].includes(type) == false) {
-                                FinalResult2 += index + " - ";
-                                tempCounter++;
 
 
-                            } else {
-                                FinalResult2 += index + ".";
-                                tempCounter++;
+							} else {
 
-                            }
+								if (index.includes("HUB")) {
 
+									FinalResult2 = FinalResult2.slice(0, -1) + "."
+									tempCounter++;
 
 
-                        } else {
+								} else {
 
+									FinalResult2 += "Passed to: " + index + ".";
 
-                            FinalResult2 += index + ".";
-                            tempCounter++;
+									tempCounter++;
+								}
+							}
+						} else {
 
 
-                        }
+							if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
+								FinalResult2 = FinalResult2.slice(0, -3) + "."
+								tempCounter++;
 
 
+							} else {
+								FinalResult2 += "Passed to: " + index + ".";
+								tempCounter++;
+							}
 
-                    } else if (tempCounter == 3) {
-                        FinalResult2 += index + ".";
-                        tempCounter++;
 
+						}
 
-                    } else if (tempCounter == 4) {
 
-                        FinalResult2 += index + ".";
-                        tempCounter++;
 
-                    } else {
 
-                        FinalResult2 += index;
-                        tempCounter++;
-                    }
-                }
+					} else if (tempCounter == 3) {
 
+						if (i + 1 < Array.length) {
 
-            }
-        }
+							if (Array[i + 1].includes(type) == false) {
+								FinalResult2 += index + " - ";
+								tempCounter++;
 
-        return FinalResult2;
-    }
 
+							} else {
+								if (index.includes("HUB")) {
+									FinalResult2 = FinalResult2.slice(0, -3) + "."
+									tempCounter++;
 
-    function PT_Beautifier(table, type) { //function for beautifying an incident details like - or . etc...
 
+								} else {
+									FinalResult2 += "Passed to: " + index + ".";
+									tempCounter++;
+								}
+							}
 
-        var FinalResult2 = "";
-        temp = []; //array that will contain the array without the empty values 
 
-        var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
 
-        var Array = SplitByString(table, splitBy); //split array
-        splitBy = "\t"
-        Array = SplitByString(table, splitBy); //split array
-        var tempCounter = 0;
-        for (let i of Array)
-            i && temp.push(i); // copy each non-empty value to the 'temp' array
+						} else {
 
-        Array = temp; // array that contains each element from the table 
 
+							if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
+								FinalResult2 = FinalResult2.slice(0, -3) + "."
+								tempCounter++;
 
-        splitBy = "\n"
-        Array = SplitByString(table, splitBy); //split array
 
+							} else {
+								FinalResult2 += "Passed to: " + index + ".";
+								tempCounter++;
+							}
 
-        Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
-        splitBy = "\t"
-        Array = SplitByString(table, splitBy); //split array
-        splitBy = "\t\t"
-        Array = SplitByString(table, splitBy); //split array
-        Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
 
-        for (var i = 0; i < Array.length; i++) { //loop over array of incidents
-            index = Array[i];
-            index = index.replace('\n', ""); //replace new line with nothing (since major incidents or dates come with ectra '\n')
-            Array[i] = index;
-        }
+						}
 
 
 
+					} else if (tempCounter == 4) {
 
-        for (var i = 0; i < Array.length; i++) { //loop over array of incidents
-            index = Array[i];
-            index = index.replace('\n', ""); //replace new line with nothing (since major incidents come with ectra '\n')
+						if (index.includes("HUB")) {
+							FinalResult2 = FinalResult2.slice(0, -3) + "."
+							tempCounter++;
 
 
+						} else {
+							FinalResult2 += "Passed to: " + index + ".";
+							tempCounter++;
+						}
 
+					} else if (tempCounter == 5) {
 
-            if (index.includes(type) && index != Array[0]) { //if there is a new  incident
-                tempCounter = 0;
+						FinalResult2 += index + ".";
+						tempCounter++;
 
+					} else {
 
-                FinalResult2 += "\n   • " + index + ": ";
+						FinalResult2 += index + " ";
+						tempCounter++;
+					}
+				}
 
-            } else {
-                if (index.includes(type) && index == Array[0]) { //the first incident 
 
-                    if (tempCounter == 0) {
+			}
+		}
 
-                        FinalResult2 += "   • " + index + ": ";
-                    }
+		return FinalResult2;
+	}
 
 
 
-                } else {
+	//function for SOC incidents.
 
-                    if (tempCounter == 0) {
-                        FinalResult2 += index;
-                        tempCounter++;
+	//function for incidents / iii and soc alerts 
+	function SOCBeautifier(table, type) { //function for beautifying an incident details like - or . etc...
 
-                    } else if (tempCounter == 1) {
+		var FinalResult2 = "";
+		temp = []; //array that will contain the array without the empty values 
 
+		var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
 
+		var Array = SplitByString(table, splitBy); //split array
+		splitBy = "\t"
+		Array = SplitByString(table, splitBy); //split array
+		var tempCounter = 0;
+		for (let i of Array)
+			i && temp.push(i); // copy each non-empty value to the 'temp' array
 
-                        FinalResult2 += " ,priority: " + index + " - Title: ";
-                        tempCounter++;
 
+		Array = temp; // array that contains each element from the table 
 
-                    } else if (tempCounter == 2) {
 
+		splitBy = "\n"
+		Array = SplitByString(table, splitBy); //split array
 
-                        FinalResult2 += index + ". ";
-                        tempCounter++;
 
+		Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
+		splitBy = "\t"
+		Array = SplitByString(table, splitBy); //split array
+		splitBy = "\t\t"
+		Array = SplitByString(table, splitBy); //split array
+		Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
+		FinalResult2 += "\n";
 
+		for (var i = 0; i < Array.length; i++) { //loop over array of incidents
+			index = Array[i];
+			index = index.replace('\n', ""); //replace new line with nothing (since major incidents or dates come with ectra '\n')
+			Array[i] = index;
+		}
 
+		for (var i = 0; i < Array.length; i++) { //loop over array of incidents
+			index = Array[i];
+			index = index.replace('\n', ""); //replace new line with nothing (since major incidents come with ectra '\n')
 
-                    } else {
 
-                        FinalResult2 += index;
-                        tempCounter++;
-                    }
-                }
 
 
-            }
-        }
+			if (index.includes(type) && index != Array[0]) { //if there is a new  incident
+				tempCounter = 0;
 
-        return FinalResult2;
-    }
 
-    //function for incidents / iii and soc alerts 
-    function NOCIncBeautifier(table, type) { //function for beautifying an incident details like - or . etc...
+				FinalResult2 += "\n              • " + index + ": ";
 
-        var FinalResult2 = "";
-        temp = []; //array that will contain the array without the empty values 
+			} else {
+				if (index.includes(type) && index == Array[0]) { //the first incident 
 
-        var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
+					if (tempCounter == 0) {
 
-        var Array = SplitByString(table, splitBy); //split array
-        splitBy = "\t"
-        Array = SplitByString(table, splitBy); //split array
-        var tempCounter = 0;
-        for (let i of Array)
-            i && temp.push(i); // copy each non-empty value to the 'temp' array
+						FinalResult2 += "              • " + index + ": ";
+					}
 
-        Array = temp; // array that contains each element from the table 
 
-        Array = Array.filter(e => e !== '\n'); // removes \n from major incidents
 
+				} else {
 
-        for (var i = 0; i < Array.length; i++) { //loop over array of incidents
-            index = Array[i];
-            index = index.replace('\n', ""); //replace new line with nothing (since major incidents come with ectra '\n')
+					if (tempCounter == 0) {
+						FinalResult2 += index + " - ";
+						tempCounter++;
+					} else if (tempCounter == 1) {
 
+						if (i + 1 < Array.length) {
 
 
+							if (Array[i + 1].includes(type) == false) {
 
-            if (index.includes(type) && index != Array[0]) { //if there is a new  incident
-                tempCounter = 0;
+								FinalResult2 += " - " + index + " - ";
+								tempCounter++;
 
 
-                FinalResult2 += "\n              • " + index + ": ";
 
-            } else {
-                if (index.includes(type) && index == Array[0]) { //the first incident 
+							} else {
 
-                    if (tempCounter == 0) {
+								if (index.includes("HUB")) {
 
-                        FinalResult2 += "              • " + index + ": ";
-                    }
+									FinalResult2 = FinalResult2.slice(0, -2) + "."
+									tempCounter++;
 
 
+								} else {
 
-                } else {
+									FinalResult2 += "Passed to: " + index + ".";
 
-                    if (tempCounter == 0) {
-                        FinalResult2 += index + " - ";
-                        tempCounter++;
-                    } else if (tempCounter == 2) {
+									tempCounter++;
+								}
+							}
+						} else {
 
-                        if (i + 1 < Array.length) {
 
+							if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
+								FinalResult2 = FinalResult2.slice(0, -3) + "."
+								tempCounter++;
 
-                            if (Array[i + 1].includes(type) == false) {
 
-                                FinalResult2 += " - " + index + " - ";
-                                tempCounter++;
+							} else {
+								FinalResult2 += "Passed to: " + index + ".";
+								tempCounter++;
+							}
 
 
+						}
 
-                            } else {
 
-                                if (index.includes("HUB")) {
 
-                                    FinalResult2 = FinalResult2.slice(0, -1) + "."
-                                    tempCounter++;
 
+					} else if (tempCounter == 2) {
 
-                                } else {
+						if (i + 1 < Array.length) {
 
-                                    FinalResult2 += "Passed to: " + index + ".";
 
-                                    tempCounter++;
-                                }
-                            }
-                        } else {
+							if (Array[i + 1].includes(type) == false) {
 
+								FinalResult2 += " - " + index + " - ";
+								tempCounter++;
 
-                            if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
-                                FinalResult2 = FinalResult2.slice(0, -3) + "."
-                                tempCounter++;
 
 
-                            } else {
-                                FinalResult2 += "Passed to: " + index + ".";
-                                tempCounter++;
-                            }
+							} else {
 
+								if (index.includes("HUB")) {
 
-                        }
+									FinalResult2 = FinalResult2.slice(0, -2) + "."
+									tempCounter++;
 
 
+								} else {
 
+									FinalResult2 += "Passed to: " + index + ".";
 
-                    } else if (tempCounter == 3) {
+									tempCounter++;
+								}
+							}
+						} else {
 
-                        if (i + 1 < Array.length) {
 
-                            if (Array[i + 1].includes(type) == false) {
-                                FinalResult2 += index + " - ";
-                                tempCounter++;
+							if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
+								FinalResult2 = FinalResult2.slice(0, -3) + "."
+								tempCounter++;
 
 
-                            } else {
-                                if (index.includes("HUB")) {
-                                    FinalResult2 = FinalResult2.slice(0, -3) + "."
-                                    tempCounter++;
+							} else {
+								FinalResult2 += "Passed to: " + index + ".";
+								tempCounter++;
+							}
 
 
-                                } else {
-                                    FinalResult2 += "Passed to: " + index + ".";
-                                    tempCounter++;
-                                }
-                            }
+						}
 
 
 
-                        } else {
 
+					} else if (tempCounter == 3) {
 
-                            if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
-                                FinalResult2 = FinalResult2.slice(0, -3) + "."
-                                tempCounter++;
+						if (i + 1 < Array.length) {
 
+							if (Array[i + 1].includes(type) == false) {
+								FinalResult2 += index + " - ";
+								tempCounter++;
 
-                            } else {
-                                FinalResult2 += "Passed to: " + index + ".";
-                                tempCounter++;
-                            }
 
+							} else {
+								if (index.includes("HUB")) {
+									FinalResult2 = FinalResult2.slice(0, -3) + "."
+									tempCounter++;
 
-                        }
 
+								} else {
+									FinalResult2 += "Passed to: " + index + ".";
+									tempCounter++;
+								}
+							}
 
 
-                    } else if (tempCounter == 4) {
 
-                        if (index.includes("HUB")) {
-                            FinalResult2 = FinalResult2.slice(0, -3) + "."
-                            tempCounter++;
+						} else {
 
 
-                        } else {
-                            FinalResult2 += "Passed to: " + index + ".";
-                            tempCounter++;
-                        }
+							if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
+								FinalResult2 = FinalResult2.slice(0, -3) + "."
+								tempCounter++;
 
-                    } else if (tempCounter == 5) {
 
-                        FinalResult2 += index + ".";
-                        tempCounter++;
+							} else {
+								FinalResult2 += "Passed to: " + index + ".";
+								tempCounter++;
+							}
 
-                    } else {
 
-                        FinalResult2 += index + " ";
-                        tempCounter++;
-                    }
-                }
+						}
 
 
-            }
-        }
 
-        return FinalResult2;
-    }
+					} else if (tempCounter == 4) {
 
+						if (index.includes("HUB")) {
+							FinalResult2 = FinalResult2.slice(0, -3) + "."
+							tempCounter++;
 
 
-    //*  Analysing The Owner & Reformating The Names**
+						} else {
+							FinalResult2 += "Passed to: " + index + ".";
+							tempCounter++;
+						}
 
-    function titleCase(str) { //this method is for the capitalization of every first letter in each word
-        var splitStr = str.toLowerCase().split(' ');
-        for (var i = 0; i < splitStr.length; i++) {
+					} else if (tempCounter == 5) {
 
-            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-        }
+						FinalResult2 += index + ".";
+						tempCounter++;
 
-        return splitStr.join(' ');
-    }
-    ShiftNames = titleCase(ShiftNames); //saves the capitalization in within the shift names
+					} else {
 
-    for (var i = 0; i < ShiftNames.indexOf(" "); i++) { //analyzing the owner
+						FinalResult2 += index + " ";
+						tempCounter++;
+					}
+				}
 
-        Owner += ShiftNames.charAt(i);
 
-    }
+			}
+		}
 
-    let FormatedNames = ""; //The names become in the format of name & name & name.
-    for (var i = 0; i < ShiftNames.length; i++) {
+		return FinalResult2;
+	}
 
-        if (ShiftNames.charAt(i) == " ") { //if a space was detected
-            FormatedNames += " & ";
 
-        } else {
-            FormatedNames += ShiftNames.charAt(i);
-            if (i == ShiftNames.length - 1) {
-                FormatedNames += ".";
 
 
-            }
-        }
 
-    }
+	//*  Analysing The Owner & Reformating The Names**
 
-    function translate(char) { //function for translating any string into a unicode Bold text.
-        let diff;
-        if (/[A-Z]/.test(char)) {
-            diff = "𝗔".codePointAt(0) - "A".codePointAt(0);
-        } else {
-            diff = "𝗮".codePointAt(0) - "a".codePointAt(0);
-        }
-        return String.fromCodePoint(char.codePointAt(0) + diff);
-    }
+	function titleCase(str) { //this method is for the capitalization of every first letter in each word
+		var splitStr = str.toLowerCase().split(' ');
+		for (var i = 0; i < splitStr.length; i++) {
 
-    text3 = text3.replace(/[A-Za-z]/g, translate);
-    //text4 = text4.replace(/[A-Za-z]/g, translate);
-    text5 = text5.replace(/[A-Za-z]/g, translate);
-    text6 = text6.replace(/[A-Za-z]/g, translate);
-    text7 = text7.replace(/[A-Za-z]/g, translate);
-    text8 = text8.replace(/[A-Za-z]/g, translate);
-    text9 = text9.replace(/[A-Za-z]/g, translate);
-    text10 = text10.replace(/[A-Za-z]/g, translate);
-    text11 = text11.replace(/[A-Za-z]/g, translate);
-    text12 = text12.replace(/[A-Za-z]/g, translate);
-    text13 = text13.replace(/[A-Za-z]/g, translate);
+			splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+		}
 
-    //-------------------------------------------------------------
+		return splitStr.join(' ');
+	}
+	ShiftNames = titleCase(ShiftNames); //saves the capitalization in within the shift names
 
-    function fallbackcopyToClipboard(text) { //this method is for automatically copying the result to a clipboard.
-        var textArea = document.createElement("textarea");
-        textArea.value = text;
-        textArea.style.top = "0";
-        textArea.style.left = "0";
-        textArea.style.position = "fixed";
+	for (var i = 0; i < ShiftNames.indexOf(" "); i++) { //analyzing the owner
 
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
+		Owner += ShiftNames.charAt(i);
 
-        try {
-            var successful = document.execCommand('copy');
-            var msg = successful ? 'successful' : 'unsuccessful';
-            console.log('Fallback: Copying text command was ' + msg);
-        } catch (err) {
-            console.error('Fallback: Oops, unable to copy', err);
-        }
+	}
 
-        document.body.removeChild(textArea);
-    }
+	let FormatedNames = ""; //The names become in the format of name & name & name.
+	for (var i = 0; i < ShiftNames.length; i++) {
 
-    function copyToClipboard(text) {
-        if (!navigator.clipboard) {
-            fallbackcopyToClipboard(text);
-            return;
-        }
-        navigator.clipboard.writeText(text).then(function() {
+		if (ShiftNames.charAt(i) == " ") { //if a space was detected
+			FormatedNames += " & ";
 
-            console.log('%c Copying to clipboard was successful!', 'background: #00ccff; color: #ffffff');
-        }, function(err) {
+		} else {
+			FormatedNames += ShiftNames.charAt(i);
+			if (i == ShiftNames.length - 1) {
+				FormatedNames += ".";
 
-            console.log('%c Could not copy text !', 'background: #e8105f; color: #ffffff');
-        });
-    }
 
-    //%%%%%%%%%%%%%%%%%%%%%%    FUNCTIONS   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%A%
+			}
+		}
 
+	}
 
-    // *      MAIN      * */
+	function translate(char) { //function for translating any string into a unicode Bold text.
+		let diff;
+		if (/[A-Z]/.test(char)) {
+			diff = "𝗔".codePointAt(0) - "A".codePointAt(0);
+		} else {
+			diff = "𝗮".codePointAt(0) - "a".codePointAt(0);
+		}
+		return String.fromCodePoint(char.codePointAt(0) + diff);
+	}
 
-    var INC_table = NOCIncBeautifier(INC, "INC"); // it takes the table and the type that makes a new sentence ...
+	text3 = text3.replace(/[A-Za-z]/g, translate);
+	//text4 = text4.replace(/[A-Za-z]/g, translate);
+	text5 = text5.replace(/[A-Za-z]/g, translate);
+	text6 = text6.replace(/[A-Za-z]/g, translate);
+	text7 = text7.replace(/[A-Za-z]/g, translate);
+	text8 = text8.replace(/[A-Za-z]/g, translate);
+	text9 = text9.replace(/[A-Za-z]/g, translate);
+	text10 = text10.replace(/[A-Za-z]/g, translate);
+	text11 = text11.replace(/[A-Za-z]/g, translate);
+	text12 = text12.replace(/[A-Za-z]/g, translate);
+	text13 = text13.replace(/[A-Za-z]/g, translate);
 
-    if (INC_table.includes("No records to display")) {
+	//-------------------------------------------------------------
 
-        INC_table = "              • None."
-    }
+	function fallbackcopyToClipboard(text) { //this method is for automatically copying the result to a clipboard.
+		var textArea = document.createElement("textarea");
+		textArea.value = text;
+		textArea.style.top = "0";
+		textArea.style.left = "0";
+		textArea.style.position = "fixed";
 
+		document.body.appendChild(textArea);
+		textArea.focus();
+		textArea.select();
 
+		try {
+			var successful = document.execCommand('copy');
+			var msg = successful ? 'successful' : 'unsuccessful';
+			console.log('Fallback: Copying text command was ' + msg);
+		} catch (err) {
+			console.error('Fallback: Oops, unable to copy', err);
+		}
 
-    var CH_table = NonResolved_Beautifier(CH, "CH"); // it takes the table and the type that makes a new sentence ...
+		document.body.removeChild(textArea);
+	}
 
-    if (CH_table.includes("No records to display")) {
+	function copyToClipboard(text) {
+		if (!navigator.clipboard) {
+			fallbackcopyToClipboard(text);
+			return;
+		}
+		navigator.clipboard.writeText(text).then(function() {
 
-        CH_table = "   None."
-    }
+			console.log('%c Copying to clipboard was successful!', 'background: #00ccff; color: #ffffff');
+		}, function(err) {
 
+			console.log('%c Could not copy text !', 'background: #e8105f; color: #ffffff');
+		});
+	}
 
-    var Exceptional_table = NonResolved_Beautifier(Exceptional, "INC"); // it takes the table and the type that makes a new sentence ...
+	//%%%%%%%%%%%%%%%%%%%%%%    FUNCTIONS   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%A%
 
-    if (Exceptional_table.includes("No records to display")) {
 
-        Exceptional_table = "   None."
-    }
+	// *      MAIN      * */
 
+	var INC_table = NOC_III_IncBeautifier(INC, "INC"); // it takes the table and the type that makes a new sentence ...
 
+	if (INC_table.includes("No records to display")) {
 
-    var CASES_table = CasesBeautifier(CASES, "06"); // it takes the table and the type that makes a new sentence ...
+		INC_table = " None."
+	}
 
-    if (CASES_table.includes("No records to display")) {
 
-        CASES_table = "   None."
-    }
 
+	var CH_table = NonResolved_Beautifier(CH, "CH"); // it takes the table and the type that makes a new sentence ...
 
-    var TASKS_table = PT_Beautifier(TASKS, "PT"); // it takes the table and the type that makes a new sentence ...
+	if (CH_table.includes("No records to display")) {
 
-    if (TASKS_table.includes("No records to display")) {
+		CH_table = " None."
+	}
 
-        TASKS_table = "   None."
-    }
 
+	var Exceptional_table = NonResolved_Beautifier(Exceptional, "INC"); // it takes the table and the type that makes a new sentence ...
 
-    var NONE_RESOLVED_table = NonResolved_Beautifier(NONE_RESOLVED, "INC"); // it takes the table and the type that makes a new sentence ...
+	if (Exceptional_table.includes("No records to display")) {
 
-    if (NONE_RESOLVED_table.includes("No records to display")) {
+		Exceptional_table = " None."
+	}
 
-        NONE_RESOLVED_table = "   None."
-    }
 
-    var III_table = NOCIncBeautifier(III, "INC"); // it takes the table and the type that makes a new sentence ...
 
-    if (III_table.includes("No records to display")) {
+	var CASES_table = CasesBeautifier(CASES, "06"); // it takes the table and the type that makes a new sentence ...
 
-        III_table = "              • None."
-    }
+	if (CASES_table.includes("No records to display")) {
 
+		CASES_table = " None."
+	}
 
-    var SOC_table = NOCIncBeautifier(SOC, "INC"); // it takes the table and the type that makes a new sentence ...
 
-    if (SOC_table.includes("No records to display")) {
+	var TASKS_table = PT_Beautifier(TASKS, "PT"); // it takes the table and the type that makes a new sentence ...
 
-        SOC_table = "              • None."
-    }
+	if (TASKS_table.includes("No records to display")) {
 
+		TASKS_table = " None."
+	}
 
 
-    //------------------Title----------------
-    var ShiftPeriod;
+	var NONE_RESOLVED_table = NonResolved_Beautifier(NONE_RESOLVED, "INC"); // it takes the table and the type that makes a new sentence ...
 
-    const today = new Date() // date
-    var month = today.toLocaleString('default', {
-        month: 'long'
-    }); // get the month 
-    var day = today.getDate(); //get the  Day
+	if (NONE_RESOLVED_table.includes("No records to display")) {
 
+		NONE_RESOLVED_table = " None."
+	}
 
+	var III_table = NOC_III_IncBeautifier(III, "INC"); // it takes the table and the type that makes a new sentence ...
 
-    if (ChooseShift == "m") {
-        ShiftPeriod = "Morning Shift";
+	if (III_table.includes("No records to display")) {
 
-    }
+		III_table = " None."
+	}
 
-    if (ChooseShift == "e") {
-        ShiftPeriod = "Evening Shift";
 
-    }
+	var SOC_table = SOCBeautifier(SOC, "INC"); // it takes the table and the type that makes a new sentence ...
 
+	if (SOC_table.includes("No records to display")) {
 
-    if (ChooseShift == "n") {
-        ShiftPeriod = "Night Shift";
-        day = day - 1;
+		SOC_table = " None."
+	}
 
-    }
 
-    var Summary = ""; // summary String
 
-    Summary += `NOC & SOC Shift Summary - ` + ShiftPeriod + " - " + day + " / " + month + ".\n\n"; //summary's title.
+	//------------------Title----------------
+	var ShiftPeriod;
 
+	const today = new Date() // date
+	var month = today.toLocaleString('default', {
+		month: 'long'
+	}); // get the month 
+	var day = today.getDate(); //get the  Day
 
-    //-----------------------------------------
 
-    titleCase(FormatedNames); // it creates a good format out of the shift owner and members.
-    let Owner_BOLD = Owner.replace(/[A-Za-z]/g, translate); //owner name in bold
 
-    Summary += "Hi all,\n" + text1 + Owner + " " + text2 + FormatedNames + "\n\n" + text3 + "\n" + Exceptional_table + "\n\n" + text5 + "\n" + CH_table + "\n\n" + text10 + "\n" + text11 + "\n" + INC_table + "\n\n" + text12 + "\n" + SOC_table + "\n\n" + text13 + "\n" + III_table + "\n\n" + text6 + "\n" + CASES_table + "\n\n" + text7 + "\n" + NONE_RESOLVED_table + "\n\n" + text8 + "\n" + TASKS_table + "\n\n" + text9 + "\n\nBest Regards,\n" + Owner_BOLD + "\nNOC & SOC Engineer";
+	if (ChooseShift == "m") {
+		ShiftPeriod = "Morning Shift";
 
+	}
 
-    copyToClipboard(Summary); //copy to clipboard the following result.
+	if (ChooseShift == "e") {
+		ShiftPeriod = "Evening Shift";
+
+	}
+
+
+	if (ChooseShift == "n") {
+		ShiftPeriod = "Night Shift";
+		day = day - 1;
+
+	}
+
+	var Summary = ""; // summary String
+
+	Summary += `NOC & SOC Shift Summary - ` + ShiftPeriod + " - " + day + " / " + month + ".\n\n"; //summary's title.
+
+
+	//-----------------------------------------
+
+	titleCase(FormatedNames); // it creates a good format out of the shift owner and members.
+	let Owner_BOLD = Owner.replace(/[A-Za-z]/g, translate); //owner name in bold
+
+	Summary += "Hi all,\n" + text1 + Owner + " " + text2 + FormatedNames + "\n\n" + text3 + Exceptional_table + "\n\n" + text5 + CH_table + "\n\n" + text10 + "\n" + text11 + INC_table + "\n\n" + text12 + SOC_table + "\n\n" + text13 + III_table + "\n\n" + text6 + CASES_table + "\n\n" + text7 + NONE_RESOLVED_table + "\n\n" + text8 + TASKS_table + "\n\n" + text9 + "\n\nBest Regards,\n" + Owner_BOLD + "\nNOC & SOC Engineer";
+
+
+	copyToClipboard(Summary); //copy to clipboard the following result.
 
 });
