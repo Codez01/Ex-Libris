@@ -7,6 +7,7 @@
  * (c) Copyright by Exlibris.      **
  *                                 **
  ************************************/
+ http://gitlab.int.hosted.exlibrisgroup.com/hannab/primo-automations/-/raw/master/SummaryGenerator.js
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ CHANGE IFRAME WINDOW $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 document.getElementsByName("gsft_main")[0].contentWindow.run = function(fn) {
@@ -403,7 +404,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
 
 
-						FinalResult2 += " ,priority: " + index + " - Title: ";
+						FinalResult2 += " ,priority: " + index + " - itle: ";
 						tempCounter++;
 
 
@@ -431,7 +432,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 	}
 
 	//function for incidents / iii  alerts 
-	function NOC_III_IncBeautifier(table, type) { //function for beautifying an incident details like - or . etc...
+	function NOC_IncBeautifier(table, type) { //function for beautifying an incident details like - or . etc...
 
 		var FinalResult2 = "";
 		temp = []; //array that will contain the array without the empty values 
@@ -831,6 +832,238 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 	}
 
 
+// III incident beautifier.
+	function III_Beautifier(table, type) { //function for beautifying an incident details like - or . etc...
+
+		var FinalResult2 = "";
+		temp = []; //array that will contain the array without the empty values 
+
+		var splitBy = "\n\t\n\t\t"; // the array will be splitted by this value 
+
+		var Array = SplitByString(table, splitBy); //split array
+		splitBy = "\t"
+		Array = SplitByString(table, splitBy); //split array
+		var tempCounter = 0;
+		for (let i of Array)
+			i && temp.push(i); // copy each non-empty value to the 'temp' array
+
+
+		Array = temp; // array that contains each element from the table 
+
+
+		splitBy = "\n"
+		Array = SplitByString(table, splitBy); //split array
+
+
+		Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
+		splitBy = "\t"
+		Array = SplitByString(table, splitBy); //split array
+		splitBy = "\t\t"
+		Array = SplitByString(table, splitBy); //split array
+		Array = Array.filter(e => e.replace(/(\r\n|\n|\r)/gm, "") !== '')
+		FinalResult2 += "\n";
+
+		for (var i = 0; i < Array.length; i++) { //loop over array of incidents
+			index = Array[i];
+			index = index.replace('\n', ""); //replace new line with nothing (since major incidents or dates come with ectra '\n')
+			Array[i] = index;
+		}
+
+		for (var i = 0; i < Array.length; i++) { //loop over array of incidents
+			index = Array[i];
+			index = index.replace('\n', ""); //replace new line with nothing (since major incidents come with ectra '\n')
+
+
+
+
+			if (index.includes(type) && index != Array[0]) { //if there is a new  incident
+				tempCounter = 0;
+
+
+				FinalResult2 += "\n              • " + index + ": ";
+
+			} else {
+				if (index.includes(type) && index == Array[0]) { //the first incident 
+
+					if (tempCounter == 0) {
+
+						FinalResult2 += "              • " + index + ": ";
+					}
+
+
+
+				} else {
+
+					if (tempCounter == 0) {
+						FinalResult2 += index + " - ";
+						tempCounter++;
+						
+					} else if (tempCounter == 1) {
+
+						if (i + 1 < Array.length) {
+
+
+							if (Array[i + 1].includes(type) == false) {
+
+								FinalResult2 +=   index + " - ";
+								tempCounter++;
+
+
+
+							} else {
+
+								if (index.includes("HUB")) {
+
+									FinalResult2 = FinalResult2.slice(0, -2) + "."
+									tempCounter++;
+
+
+								} else {
+
+									FinalResult2 += "Passed to: " + index + ".";
+
+									tempCounter++;
+								}
+							}
+						} else {
+
+
+							if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
+								FinalResult2 = FinalResult2.slice(0, -3) + "."
+								tempCounter++;
+
+
+							} else {
+								FinalResult2 += "Passed to: " + index + ".";
+								tempCounter++;
+							}
+
+
+						}
+
+
+
+
+					} else if (tempCounter == 2) {
+
+						if (i + 1 < Array.length) {
+
+
+							if (Array[i + 1].includes(type) == false) {
+
+								FinalResult2 += " - " + index + " - ";
+								tempCounter++;
+
+
+
+							} else {
+
+								if (index.includes("HUB")) {
+
+									FinalResult2 = FinalResult2.slice(0, -2) + "."
+									tempCounter++;
+
+
+								} else {
+
+									FinalResult2 += "Passed to: " + index + ".";
+
+									tempCounter++;
+								}
+							}
+						} else {
+
+
+							if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
+								FinalResult2 = FinalResult2.slice(0, -3) + "."
+								tempCounter++;
+
+
+							} else {
+								FinalResult2 += "Passed to: " + index + ".";
+								tempCounter++;
+							}
+
+
+						}
+
+
+
+
+					} else if (tempCounter == 3) {
+
+						if (i + 1 < Array.length) {
+
+							if (Array[i + 1].includes(type) == false) {
+								FinalResult2 += index + " - ";
+								tempCounter++;
+
+
+							} else {
+								if (index.includes("HUB")) {
+									FinalResult2 = FinalResult2.slice(0, -3) + "."
+									tempCounter++;
+
+
+								} else {
+									FinalResult2 += "Passed to: " + index + ".";
+									tempCounter++;
+								}
+							}
+
+
+
+						} else {
+
+
+							if (index.includes("HUB")) { //if HUB is included in the assignment group , delete it.
+								FinalResult2 = FinalResult2.slice(0, -3) + "."
+								tempCounter++;
+
+
+							} else {
+								FinalResult2 += "Passed to: " + index + ".";
+								tempCounter++;
+							}
+
+
+						}
+
+
+
+					} else if (tempCounter == 4) {
+
+						if (index.includes("HUB")) {
+							FinalResult2 = FinalResult2.slice(0, -3) + "."
+							tempCounter++;
+
+
+						} else {
+							FinalResult2 += "Passed to: " + index + ".";
+							tempCounter++;
+						}
+
+					} else if (tempCounter == 5) {
+
+						FinalResult2 += index + ".";
+						tempCounter++;
+
+					} else {
+
+						FinalResult2 += index + " ";
+						tempCounter++;
+					}
+				}
+
+
+			}
+		}
+
+		return FinalResult2;
+	}
+
+
+
 
 
 
@@ -935,7 +1168,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
 	// *      MAIN      * */
 
-	var INC_table = NOC_III_IncBeautifier(INC, "INC"); // it takes the table and the type that makes a new sentence ...
+	var INC_table = NOC_IncBeautifier(INC, "INC"); // it takes the table and the type that makes a new sentence ...
 
 	if (INC_table.includes("No records to display")) {
 
@@ -984,7 +1217,7 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 		NONE_RESOLVED_table = " None."
 	}
 
-	var III_table = NOC_III_IncBeautifier(III, "INC"); // it takes the table and the type that makes a new sentence ...
+	var III_table = III_Beautifier(III, "INC"); // it takes the table and the type that makes a new sentence ...
 
 	if (III_table.includes("No records to display")) {
 
