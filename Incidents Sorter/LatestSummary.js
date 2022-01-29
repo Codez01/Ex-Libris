@@ -7,7 +7,7 @@
  * (c) Copyright by Exlibris.      **
  *                                 **
  ************************************/
- http://gitlab.int.hosted.exlibrisgroup.com/hannab/primo-automations/-/raw/master/SummaryGenerator.js
+
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ CHANGE IFRAME WINDOW $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 document.getElementsByName("gsft_main")[0].contentWindow.run = function(fn) {
