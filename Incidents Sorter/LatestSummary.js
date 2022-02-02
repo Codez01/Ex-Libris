@@ -1237,13 +1237,15 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 	//------------------Title----------------
 	var ShiftPeriod;
 
-	const today = new Date() // date
-	var month = today.toLocaleString('default', {
-		month: 'long'
-	}); // get the month 
-	var day = today.getDate(); //get the  Day
 
+	const today = new Date()
+    const yesterday = new Date(today)
+    yesterday.setDate(yesterday.getDate() - 1) 
+    const TodayDateArray= today.toDateString().split(" ");
+    const YesterdayDateArray= yesterday.toDateString().split(" ");
 
+    var day = TodayDateArray[2];
+    var month= TodayDateArray[1];
 
 	if (ChooseShift == "m") {
 		ShiftPeriod = "Morning Shift";
@@ -1258,7 +1260,8 @@ document.getElementsByName("gsft_main")[0].contentWindow.run(function(window) {
 
 	if (ChooseShift == "n") {
 		ShiftPeriod = "Night Shift";
-		day = day - 1;
+        day = YesterdayDateArray[2];
+        month= YesterdayDateArray[1];
 
 	}
 
